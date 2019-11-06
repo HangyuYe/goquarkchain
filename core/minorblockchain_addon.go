@@ -757,7 +757,8 @@ func (m *MinorBlockChain) checkTxBeforeApply(stateT *state.StateDB, tx *types.Tr
 // CreateBlockToMine create block to mine
 func (m *MinorBlockChain) CreateBlockToMine(createTime *uint64, address *account.Address, gasLimit, xShardGasLimit *big.Int,
 	includeTx *bool) (*types.MinorBlock, error) {
-
+	ts := time.Now()
+	log.Info("ready to create block", "branch", m.branch.Value, "block", m.CurrentBlock().Number())
 	if includeTx == nil {
 		t := true
 		includeTx = &t
@@ -818,7 +819,9 @@ func (m *MinorBlockChain) CreateBlockToMine(createTime *uint64, address *account
 	}
 	receipts := make(types.Receipts, 0)
 	if *includeTx {
+		tss := time.Now()
 		block, receipts, err = m.addTransactionToBlock(block, evmState)
+		log.Info("addTx", "fullShard", m.branch.Value, "tss", time.Now().Sub(tss).Seconds())
 		if err != nil {
 			return nil, err
 		}
@@ -833,6 +836,7 @@ func (m *MinorBlockChain) CreateBlockToMine(createTime *uint64, address *account
 	pureCoinbaseAmount.Add(evmState.GetBlockFee())
 	block.Finalize(receipts, evmState.IntermediateRoot(true), evmState.GetGasUsed(),
 		evmState.GetXShardReceiveGasUsed(), pureCoinbaseAmount, evmState.GetTxCursorInfo())
+	log.Info("end to craete block", "block", block.Number(), "ts", time.Now().Sub(ts).Seconds())
 	return block, nil
 }
 

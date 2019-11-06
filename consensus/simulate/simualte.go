@@ -3,14 +3,16 @@ package simulate
 import (
 	"crypto/rand"
 	"errors"
+	"math"
+	"math/big"
+	"time"
+
 	"github.com/QuarkChain/goquarkchain/cluster/config"
 	"github.com/QuarkChain/goquarkchain/consensus"
 	"github.com/QuarkChain/goquarkchain/core/state"
 	"github.com/QuarkChain/goquarkchain/core/types"
 	"github.com/ethereum/go-ethereum/common"
-	"math"
-	"math/big"
-	"time"
+	"github.com/ethereum/go-ethereum/log"
 )
 
 type PowSimulate struct {
@@ -35,6 +37,7 @@ func (p *PowSimulate) hashAlgo(cache *consensus.ShareCache) error {
 	if p.blockInterval > 2*timeAfterCreateTime {
 		time.Sleep(time.Duration(p.blockInterval-2*timeAfterCreateTime) * time.Second)
 	}
+	log.Info("PowSimulate", "timeAfterCreateTime", timeAfterCreateTime, "blockInterval", p.blockInterval, "ts", p.blockInterval-2*timeAfterCreateTime)
 
 	cache.Result = make([]byte, 0)
 	digest, err := rand.Int(rand.Reader, big.NewInt(math.MaxInt64))

@@ -123,10 +123,11 @@ func (t *TxGenerator) Generate(genTxs rpc.GenTxRequest, addTxList func(txs []*ty
 		index++
 
 		if index >= batchScale {
+			log.Info("addTxList start", "fullShardID", t.fullShardId, "ts", time.Now().Sub(ts).Seconds())
 			if err := addTxList(txList); err != nil {
 				return err
 			}
-			log.Info("addTxList end", "total", total, "numTx", numTx, "durtion", time.Now().Sub(ts).Seconds())
+			log.Info("addTxList end", "fullShardID", t.fullShardId, "total", total, "numTx", numTx, "durtion", time.Now().Sub(ts).Seconds())
 			index = 0
 			ts = time.Now()
 			txList = make([]*types.Transaction, batchScale)
