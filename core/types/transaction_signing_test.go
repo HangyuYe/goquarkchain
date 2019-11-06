@@ -17,8 +17,10 @@
 package types
 
 import (
+	"fmt"
 	"math/big"
 	"testing"
+	"time"
 
 	"github.com/ethereum/go-ethereum/crypto"
 )
@@ -27,6 +29,7 @@ func TestEIP155Signing(t *testing.T) {
 	key, _ := crypto.GenerateKey()
 	recipient := publicKey2Recipient(&key.PublicKey)
 
+	ts := time.Now()
 	signer := NewEIP155Signer(1)
 	tx, err := SignTx(NewEvmTransaction(0, recipient, new(big.Int), 0, new(big.Int), 0, 0, 1, 0, nil, 0, 0), signer, key)
 	if err != nil {
@@ -37,6 +40,7 @@ func TestEIP155Signing(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	fmt.Println("ts-2", time.Now().Sub(ts).Nanoseconds())
 	if from != recipient {
 		t.Errorf("exected from and address to be equal. Got %x want %x", from, recipient)
 	}
