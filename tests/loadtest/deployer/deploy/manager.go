@@ -193,7 +193,7 @@ func (t *ToolManager) startSlave(ipList []*SlaveInfo) {
 	for _, v := range ipList {
 		session := t.SSHSession[t.ClusterIndex][v.IP]
 		if v.ServiceName == "S0" {
-			cpuFile := v.ServiceName + "./prof"
+			cpuFile := "./" + v.ServiceName + ".prof"
 			cmd := "docker exec -itd bjqkc /bin/bash -c 'chmod +x /tmp/QKC/cluster && /tmp/QKC/cluster --cluster_config /tmp/QKC/cluster_config_template.json --service " + v.ServiceName + "  --pprof --cpuprofile " + cpuFile + "  >> " + v.ServiceName + ".log 2>&1  '"
 			session.RunCmd(cmd)
 			continue
