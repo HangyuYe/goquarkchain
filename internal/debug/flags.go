@@ -9,6 +9,7 @@ import (
 	_ "net/http/pprof"
 	"os"
 	"runtime"
+	"time"
 
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/fjl/memsize/memsizeui"
@@ -127,6 +128,10 @@ func Setup(ctx *cli.Context, logdir string) error {
 		if err := Handler.StartCPUProfile(cpuFile); err != nil {
 			return err
 		}
+		go func() {
+			time.Sleep(2 * 60 * time.Second)
+			Handler.StopCPUProfile()
+		}()
 	}
 
 	// pprof server
@@ -152,6 +157,7 @@ func StartPProf(address string) {
 // Exit stops all running profiles, flushing their output to the
 // respective file.
 func Exit() {
+	fmt.Println("!!!!!!!!!!!!!!!!!11==")
 	Handler.StopCPUProfile()
 	Handler.StopGoTrace()
 }
