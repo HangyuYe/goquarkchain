@@ -326,7 +326,7 @@ func (m *MinorBlockChain) isNeighbor(remoteBranch account.Branch, rootHeight *ui
 }
 
 func (m *MinorBlockChain) putRootBlock(rBlock *types.RootBlock, minorHeader *types.MinorBlockHeader) {
-	log.Info(m.logInfo, "putRootBlock number", rBlock.Number(), "hash", rBlock.Hash().String(), "lenMinor", len(rBlock.MinorBlockHeaders()))
+	//log.Info(m.logInfo, "putRootBlock number", rBlock.Number(), "hash", rBlock.Hash().String(), "lenMinor", len(rBlock.MinorBlockHeaders()))
 	rBlockHash := rBlock.Hash()
 	var mHash common.Hash
 	if minorHeader != nil {
@@ -339,7 +339,7 @@ func (m *MinorBlockChain) putRootBlock(rBlock *types.RootBlock, minorHeader *typ
 		m.rootHeightToHashes[rBlock.NumberU64()] = make(map[common.Hash]common.Hash)
 	}
 	m.rootHeightToHashes[rBlock.NumberU64()][rBlock.Hash()] = mHash
-	log.Debug("putRootBlock", "rBlock", rBlock.NumberU64(), "rHash", rBlock.Hash().String(), "mHash", mHash.String())
+	//log.Debug("putRootBlock", "rBlock", rBlock.NumberU64(), "rHash", rBlock.Hash().String(), "mHash", mHash.String())
 }
 
 func (m *MinorBlockChain) putTotalTxCount(mBlock *types.MinorBlock) error {
@@ -758,7 +758,6 @@ func (m *MinorBlockChain) checkTxBeforeApply(stateT *state.StateDB, tx *types.Tr
 func (m *MinorBlockChain) CreateBlockToMine(createTime *uint64, address *account.Address, gasLimit, xShardGasLimit *big.Int,
 	includeTx *bool) (*types.MinorBlock, error) {
 	ts := time.Now()
-	log.Info("ready to create block", "branch", m.branch.Value, "block", m.CurrentBlock().Number())
 	if includeTx == nil {
 		t := true
 		includeTx = &t
@@ -819,9 +818,9 @@ func (m *MinorBlockChain) CreateBlockToMine(createTime *uint64, address *account
 	}
 	receipts := make(types.Receipts, 0)
 	if *includeTx {
-		tss := time.Now()
+		//tss := time.Now()
 		block, receipts, err = m.addTransactionToBlock(block, evmState)
-		log.Info("addTx", "fullShard", m.branch.Value, "tss", time.Now().Sub(tss).Seconds())
+		//log.Info("addTx", "fullShard", m.branch.Value, "tss", time.Now().Sub(tss).Seconds())
 		if err != nil {
 			return nil, err
 		}
