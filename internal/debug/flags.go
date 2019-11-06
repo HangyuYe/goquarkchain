@@ -129,7 +129,7 @@ func Setup(ctx *cli.Context, logdir string) error {
 			return err
 		}
 		go func() {
-			time.Sleep(2 * 60 * time.Second)
+			time.Sleep(3 * 60 * time.Second)
 			Handler.StopCPUProfile()
 		}()
 	}
