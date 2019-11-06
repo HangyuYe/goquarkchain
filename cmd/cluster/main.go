@@ -3,6 +3,13 @@ package main
 
 import (
 	"fmt"
+	"math"
+	"os"
+	"runtime"
+	godebug "runtime/debug"
+	"sort"
+	"strconv"
+
 	"github.com/QuarkChain/goquarkchain/cluster/master"
 	"github.com/QuarkChain/goquarkchain/cluster/service"
 	"github.com/QuarkChain/goquarkchain/cluster/slave"
@@ -11,11 +18,6 @@ import (
 	"github.com/elastic/gosigar"
 	"github.com/ethereum/go-ethereum/log"
 	"gopkg.in/urfave/cli.v1"
-	"math"
-	"os"
-	godebug "runtime/debug"
-	"sort"
-	"strconv"
 )
 
 const (
@@ -118,6 +120,7 @@ func init() {
 }
 
 func main() {
+	runtime.GOMAXPROCS(2)
 	if err := app.Run(os.Args); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
