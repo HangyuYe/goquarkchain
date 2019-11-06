@@ -17,11 +17,13 @@
 package types
 
 import (
+	"crypto/ecdsa"
 	"fmt"
 	"math/big"
 	"testing"
 	"time"
 
+	"github.com/QuarkChain/goquarkchain/account"
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
@@ -44,4 +46,37 @@ func TestEIP155Signing(t *testing.T) {
 	if from != recipient {
 		t.Errorf("exected from and address to be equal. Got %x want %x", from, recipient)
 	}
+}
+
+func TestMakeSigner(t *testing.T) {
+	keyList := make([]*ecdsa.PrivateKey, 0)
+	accList := make([]account.Recipient, 0)
+	for index := 0; index < 10000; index++ {
+		key, _ := crypto.GenerateKey()
+		recipient := publicKey2Recipient(&key.PublicKey)
+		keyList = append(keyList, key)
+		accList = append(accList, recipient)
+	}
+
+	tsList := make([]*EvmTransaction, 0)
+	ts := time.Now()
+	signer := NewEIP155Signer(1)
+	for index := 0; index < 10000; index++ {
+		tx, err := SignTx(NewEvmTransaction(0, accList[index], new(big.Int), 0, new(big.Int), 0, 0, 1, 0, nil, 0, 0), signer, keyList[index])
+		if err != nil {
+			t.Fatal(err)
+		}
+		tsList = append(tsList, tx)
+	}
+
+	fmt.Println("ts", time.Now().Sub(ts).Seconds())
+
+	ts = time.Now()
+	for index := 0; index < 10000; index++ {
+		_, err := Sender(signer, tsList[index])
+		if err != nil {
+			t.Fatal(err)
+		}
+	}
+	fmt.Println("ts", time.Now().Sub(ts).Seconds())
 }
