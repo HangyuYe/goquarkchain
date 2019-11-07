@@ -263,7 +263,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 			}
 			if branch != newBlockMinor.Block.Branch().Value {
 				//return fmt.Errorf("invalid NewBlockMinor Request: mismatch branch value from peer %v. in request meta: %d, in minor header: %d",
-					peer.id, branch, newBlockMinor.Block.Branch().Value)
+				//	peer.id, branch, newBlockMinor.Block.Branch().Value)
 			}
 			tip := peer.MinorHead(branch)
 			if tip == nil {
