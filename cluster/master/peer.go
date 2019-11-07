@@ -435,7 +435,7 @@ func (p *Peer) GetMinorBlockList(hashes []common.Hash, branch uint32) ([]*types.
 	}
 	fmt.Println("ready to getMinorBlockList requestMinorBlockList-end", err, rpcId)
 
-	timeout := time.NewTimer(10)
+	timeout := time.NewTimer(requestTimeout)
 	select {
 	case obj := <-rpcchan:
 		if ret, ok := obj.([]*types.MinorBlock); !ok {
