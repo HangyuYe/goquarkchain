@@ -75,7 +75,7 @@
     }
   ],
   "CHAIN_SIZE": 8,
-  "SHARD_SIZE": 2,
+  "SHARD_SIZE": 4,
   "ExtraClusterConfig": {
     "TargetRootBlockTime": 6,
     "TargetMinorBlockTime": 1,
