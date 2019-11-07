@@ -10,7 +10,7 @@
       "ClusterID": 0
     },
     {
-      "IP": "10.168.0.11",
+      "IP": "10.168.0.13",
       "Port": 22,
       "User": "root",
       "Password": "goquarkchain",
@@ -18,7 +18,7 @@
       "ClusterID": 0
     },
     {
-      "IP": "10.168.0.11",
+      "IP": "10.168.0.13",
       "Port": 22,
       "User": "root",
       "Password": "goquarkchain",
@@ -26,7 +26,7 @@
       "ClusterID": 0
     },
     {
-      "IP": "10.168.0.11",
+      "IP": "10.168.0.13",
       "Port": 22,
       "User": "root",
       "Password": "goquarkchain",
@@ -34,7 +34,7 @@
       "ClusterID": 0
     },
     {
-      "IP": "10.168.0.11",
+      "IP": "10.168.0.13",
       "Port": 22,
       "User": "root",
       "Password": "goquarkchain",
@@ -42,7 +42,7 @@
       "ClusterID": 0
     },
     {
-      "IP": "10.168.0.11",
+      "IP": "10.168.0.13",
       "Port": 22,
       "User": "root",
       "Password": "goquarkchain",
@@ -50,7 +50,7 @@
       "ClusterID": 0
     },
     {
-      "IP": "10.168.0.11",
+      "IP": "10.168.0.13",
       "Port": 22,
       "User": "root",
       "Password": "goquarkchain",
@@ -58,7 +58,7 @@
       "ClusterID": 0
     },
     {
-      "IP": "10.168.0.11",
+      "IP": "10.168.0.13",
       "Port": 22,
       "User": "root",
       "Password": "goquarkchain",
@@ -66,19 +66,148 @@
       "ClusterID": 0
     },
     {
-      "IP": "10.168.0.11",
+      "IP": "10.168.0.13",
       "Port": 22,
       "User": "root",
       "Password": "goquarkchain",
       "Service": "slave",
       "ClusterID": 0
+    },
+    {
+      "IP": "10.168.0.14",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "master,slave",
+      "ClusterID": 1
+    },
+    {
+      "IP": "10.168.0.14",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 1
+    },
+    {
+      "IP": "10.168.0.14",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 1
+    },
+    {
+      "IP": "10.168.0.14",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 1
+    },
+    {
+      "IP": "10.168.0.14",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 1
+    },
+    {
+      "IP": "10.168.0.14",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 1
+    },
+    {
+      "IP": "10.168.0.14",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 1
+    },
+    {
+      "IP": "10.168.0.14",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 1
+    },
+    {
+      "IP": "10.168.0.15",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "master,slave",
+      "ClusterID": 2
+    },
+    {
+      "IP": "10.168.0.15",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 2
+    },
+    {
+      "IP": "10.168.0.15",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 2
+    },
+    {
+      "IP": "10.168.0.15",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 2
+    },
+    {
+      "IP": "10.168.0.15",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 2
+    },
+    {
+      "IP": "10.168.0.15",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 2
+    },
+    {
+      "IP": "10.168.0.15",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 2
+    },
+    {
+      "IP": "10.168.0.15",
+      "Port": 22,
+      "User": "root",
+      "Password": "goquarkchain",
+      "Service": "slave",
+      "ClusterID": 2
     }
+
   ],
   "CHAIN_SIZE": 8,
   "SHARD_SIZE": 4,
   "ExtraClusterConfig": {
-    "TargetRootBlockTime": 6,
-    "TargetMinorBlockTime": 1,
+    "TargetRootBlockTime": 20,
+    "TargetMinorBlockTime": 4,
     "GasLimit": 96000000
   }
 }

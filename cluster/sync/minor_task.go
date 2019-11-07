@@ -3,13 +3,14 @@ package sync
 import (
 	"errors"
 	"fmt"
+	"math/big"
+
 	"github.com/QuarkChain/goquarkchain/account"
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	qcom "github.com/QuarkChain/goquarkchain/common"
 	"github.com/QuarkChain/goquarkchain/core/types"
 	"github.com/QuarkChain/goquarkchain/p2p"
 	"github.com/ethereum/go-ethereum/common"
-	"math/big"
 )
 
 type minorSyncerPeer interface {
@@ -140,7 +141,7 @@ func (m *minorChainTask) downloadBlockHeaderListAndCheck(height, skip, limit uin
 		return nil, errors.New("Remote chain reorg causing empty minor block headers ")
 	}
 
-	newLimit := (m.header.Number + 1 - height + skip) / (skip + 1)
+	newLimit := (m.header.Number + 1 - height) / (skip + 1)
 	if newLimit > limit {
 		newLimit = limit
 	}
