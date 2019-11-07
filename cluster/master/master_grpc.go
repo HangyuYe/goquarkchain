@@ -2,9 +2,12 @@ package master
 
 import (
 	"context"
+	"fmt"
+	"sync"
+	"time"
+
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	"github.com/QuarkChain/goquarkchain/serialize"
-	"sync"
 )
 
 type MasterServerSideOp struct {
@@ -94,6 +97,7 @@ func (m *MasterServerSideOp) BroadcastNewMinorBlock(ctx context.Context, req *rp
 }
 
 func (m *MasterServerSideOp) GetMinorBlockList(ctx context.Context, req *rpc.Request) (*rpc.Response, error) {
+	fmt.Println("MasterServerSideOp GetMinorBlockList", req.RpcId, "time", time.Now().Unix())
 	var (
 		err                  error
 		getMinorBlockListReq = new(rpc.GetMinorBlockListRequest)
