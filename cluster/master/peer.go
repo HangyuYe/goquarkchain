@@ -424,8 +424,8 @@ func (p *Peer) requestMinorBlockList(rpcId uint64, hashList []common.Hash, branc
 }
 
 func (p *Peer) GetMinorBlockList(hashes []common.Hash, branch uint32) ([]*types.MinorBlock, error) {
-	fmt.Println("ready to getMinorBlockList", branch, len(hashes))
 	rpcId, rpcchan := p.getRpcIdWithChan()
+	fmt.Println("ready to getMinorBlockList", rpcId, branch, len(hashes))
 	defer p.deleteChan(rpcId)
 
 	fmt.Println("ready to getMinorBlockList requestMinorBlockList")
@@ -433,7 +433,7 @@ func (p *Peer) GetMinorBlockList(hashes []common.Hash, branch uint32) ([]*types.
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("ready to getMinorBlockList requestMinorBlockList-end", err)
+	fmt.Println("ready to getMinorBlockList requestMinorBlockList-end", err, rpcId)
 
 	timeout := time.NewTimer(10)
 	select {
@@ -444,7 +444,7 @@ func (p *Peer) GetMinorBlockList(hashes []common.Hash, branch uint32) ([]*types.
 			return ret, nil
 		}
 	case <-timeout.C:
-		fmt.Println("TTTTTTTTT---1")
+		fmt.Println("TTTTTTTTT---1", rpcId)
 		return nil, fmt.Errorf("peer %v return GetMinorBlockList-1 disc Read Time out for rpcid %d", p.id, rpcId)
 	}
 }
