@@ -150,6 +150,13 @@ func (t *TxGenerator) Generate(genTxs rpc.GenTxRequest, addTxList func(txs []*ty
 	}
 
 	if len(txList) != 0 {
+		for k, v := range txList {
+			var err error
+			v.EvmTx, err = types.SignTx(v.EvmTx, t.sender, txListPrivate[k])
+			if err != nil {
+				panic(err)
+			}
+		}
 		if err := addTxList(txList[:index]); err != nil {
 			return err
 		}
