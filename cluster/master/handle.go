@@ -308,19 +308,21 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}
 
 	case qkcMsg.Op == p2p.GetRootBlockListRequestMsg:
-		var rootBlockReq p2p.GetRootBlockListRequest
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &rootBlockReq); err != nil {
-			return err
-		}
-		fmt.Println("Receive GetRootBlockListRequestMsg", len(rootBlockReq.RootBlockHashList))
-		resp, err := pm.HandleGetRootBlockListRequest(&rootBlockReq)
-		if err != nil {
-			fmt.Println("SSSSSSSSSSSSS", err)
-			return err
-		}
-		fmt.Println("Response GetRootBlockListRequestMs", len(resp.RootBlockList))
+		go func() {
+			var rootBlockReq p2p.GetRootBlockListRequest
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &rootBlockReq); err != nil {
+				//return err
+			}
+			fmt.Println("Receive GetRootBlockListRequestMsg", len(rootBlockReq.RootBlockHashList))
+			resp, err := pm.HandleGetRootBlockListRequest(&rootBlockReq)
+			if err != nil {
+				fmt.Println("SSSSSSSSSSSSS", err)
+				//return err
+			}
+			//fmt.Println("Response GetRootBlockListRequestMs", len(resp.RootBlockList))
 
-		return peer.SendResponse(p2p.GetRootBlockListResponseMsg, p2p.Metadata{Branch: 0}, qkcMsg.RpcID, resp)
+			peer.SendResponse(p2p.GetRootBlockListResponseMsg, p2p.Metadata{Branch: 0}, qkcMsg.RpcID, resp)
+		}()
 
 	case qkcMsg.Op == p2p.GetRootBlockListResponseMsg:
 		var blockResp p2p.GetRootBlockListResponse
@@ -356,44 +358,56 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListRequestMsg:
-		var minorHeaderReq p2p.GetMinorBlockHeaderListRequest
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorHeaderReq); err != nil {
-			return err
-		}
+		go func() {
+			var minorHeaderReq p2p.GetMinorBlockHeaderListRequest
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorHeaderReq); err != nil {
+				fmt.Println("err-11", err)
+			}
 
-		resp, err := pm.HandleGetMinorBlockHeaderListRequest(qkcMsg.RpcID, qkcMsg.MetaData.Branch, &minorHeaderReq)
-		if err != nil {
-			return err
-		}
+			resp, err := pm.HandleGetMinorBlockHeaderListRequest(qkcMsg.RpcID, qkcMsg.MetaData.Branch, &minorHeaderReq)
+			if err != nil {
+				fmt.Println("err-22", err)
+			}
 
-		return peer.SendResponse(p2p.GetMinorBlockHeaderListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+			err = peer.SendResponse(p2p.GetMinorBlockHeaderListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+			if err != nil {
+				fmt.Println("err-33", err)
+			}
+		}()
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListResponseMsg:
-		var minorHeaderResp p2p.GetMinorBlockHeaderListResponse
+		go func() {
+			var minorHeaderResp p2p.GetMinorBlockHeaderListResponse
 
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorHeaderResp); err != nil {
-			return err
-		}
-		if c := peer.getChan(qkcMsg.RpcID); c != nil {
-			c <- &minorHeaderResp
-		} else {
-			log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
-		}
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorHeaderResp); err != nil {
+				fmt.Println("err", err)
+			}
+			if c := peer.getChan(qkcMsg.RpcID); c != nil {
+				c <- &minorHeaderResp
+			} else {
+				log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
+			}
+		}()
 
 	case qkcMsg.Op == p2p.GetMinorBlockListRequestMsg:
-		fmt.Println("receive GetMinorBlockListRequestMsg-ready to seri")
-		var minorBlockReq p2p.GetMinorBlockListRequest
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockReq); err != nil {
-			return err
-		}
-		fmt.Println("receive GetMinorBlockListRequestMsg", len(minorBlockReq.MinorBlockHashList))
+		go func() {
+			fmt.Println("receive GetMinorBlockListRequestMsg-ready to seri")
+			var minorBlockReq p2p.GetMinorBlockListRequest
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockReq); err != nil {
+				fmt.Println("err-1", err)
+			}
+			fmt.Println("receive GetMinorBlockListRequestMsg", len(minorBlockReq.MinorBlockHashList))
 
-		resp, err := pm.HandleGetMinorBlockListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &minorBlockReq)
-		if err != nil {
-			return err
-		}
-		fmt.Println("repose GetMinorBlockListRequestMsg", len(resp.MinorBlockList))
-		return peer.SendResponse(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+			resp, err := pm.HandleGetMinorBlockListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &minorBlockReq)
+			if err != nil {
+				fmt.Println("err-2", err)
+			}
+			fmt.Println("repose GetMinorBlockListRequestMsg", len(resp.MinorBlockList))
+			err = peer.SendResponse(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+			if err != nil {
+				fmt.Println("err-3", err)
+			}
+		}()
 
 	case qkcMsg.Op == p2p.GetMinorBlockListResponseMsg:
 		var minorBlockResp p2p.GetMinorBlockListResponse
