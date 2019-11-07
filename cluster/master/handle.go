@@ -381,15 +381,18 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}
 
 	case qkcMsg.Op == p2p.GetMinorBlockListRequestMsg:
+		fmt.Println("receive GetMinorBlockListRequestMsg-ready to seri")
 		var minorBlockReq p2p.GetMinorBlockListRequest
 		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockReq); err != nil {
 			return err
 		}
+		fmt.Println("receive GetMinorBlockListRequestMsg", len(minorBlockReq.MinorBlockHashList))
 
 		resp, err := pm.HandleGetMinorBlockListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &minorBlockReq)
 		if err != nil {
 			return err
 		}
+		fmt.Println("repose GetMinorBlockListRequestMsg", len(resp.MinorBlockList))
 		return peer.SendResponse(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
 
 	case qkcMsg.Op == p2p.GetMinorBlockListResponseMsg:
