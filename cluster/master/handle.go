@@ -312,11 +312,13 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &rootBlockReq); err != nil {
 			return err
 		}
-
+		fmt.Println("Receive GetRootBlockListRequestMsg", len(rootBlockReq.RootBlockHashList))
 		resp, err := pm.HandleGetRootBlockListRequest(&rootBlockReq)
 		if err != nil {
+			fmt.Println("SSSSSSSSSSSSS", err)
 			return err
 		}
+		fmt.Println("Response GetRootBlockListRequestMs", len(resp.RootBlockList))
 
 		return peer.SendResponse(p2p.GetRootBlockListResponseMsg, p2p.Metadata{Branch: 0}, qkcMsg.RpcID, resp)
 

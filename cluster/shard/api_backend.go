@@ -272,7 +272,7 @@ func (s *ShardBackend) AddMinorBlock(block *types.MinorBlock) error {
 	currHead := s.MinorBlockChain.CurrentBlock().Header()
 	_, xshardLst, err := s.MinorBlockChain.InsertChainForDeposits([]types.IBlock{block}, false)
 	if err != nil || len(xshardLst) != 1 {
-		log.Error("Failed to add minor block", "err", err, "len", len(xshardLst))
+		//log.Error("Failed to add minor block", "err", err, "len", len(xshardLst))
 		return err
 	}
 	// only remove from pool if the block successfully added to state,

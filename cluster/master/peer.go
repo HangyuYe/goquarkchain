@@ -5,11 +5,12 @@ package master
 import (
 	"errors"
 	"fmt"
-	"github.com/QuarkChain/goquarkchain/p2p/nodefilter"
 	"io/ioutil"
 	"math/big"
 	"sync"
 	"time"
+
+	"github.com/QuarkChain/goquarkchain/p2p/nodefilter"
 
 	qkcom "github.com/QuarkChain/goquarkchain/common"
 	"github.com/QuarkChain/goquarkchain/core/types"
@@ -388,6 +389,7 @@ func (p *Peer) GetRootBlockList(hashes []common.Hash) ([]*types.RootBlock, error
 	rpcId, rpcchan := p.getRpcIdWithChan()
 	defer p.deleteChan(rpcId)
 
+	fmt.Println("ready to request", p.Node().String(), "len", len(hashes))
 	err := p.requestRootBlockList(rpcId, hashes)
 	if err != nil {
 		return nil, err
@@ -399,6 +401,7 @@ func (p *Peer) GetRootBlockList(hashes []common.Hash) ([]*types.RootBlock, error
 		if ret, ok := obj.([]*types.RootBlock); !ok {
 			panic("invalid return result in GetRootBlockList")
 		} else {
+			fmt.Println("end to request", p.Node().String(), "len", len(ret))
 			return ret, nil
 		}
 	case <-timeout.C:
