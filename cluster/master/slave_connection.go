@@ -43,10 +43,6 @@ func (s *SlaveConnection) GetSlaveID() string {
 	return s.slaveID
 }
 
-func (s *SlaveConnection) GetSlaveIP() string {
-	return s.target
-}
-
 func (s *SlaveConnection) GetShardMaskList() []*types.ChainMask {
 	return s.shardMaskList
 }

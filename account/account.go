@@ -7,12 +7,11 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"errors"
-	"io"
-	"io/ioutil"
-
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/pborman/uuid"
 	"golang.org/x/crypto/pbkdf2"
+	"io"
+	"io/ioutil"
 )
 
 // Account include Identity  address and ID
@@ -190,7 +189,7 @@ func (Self *Account) MakeKeyStoreJSON(password string) (EncryptedKeyJSON, error)
 		return EncryptedKeyJSON{}, errors.New("get salt failed")
 	}
 
-	kdfParams := make(map[string]interface{}, 4)
+	kdfParams := make(map[string]interface{}, 5)
 	kdfParams[kdfParamsPrf] = kdfParamsPrfValue
 	kdfParams[kdfParamsPrfDkLen] = kdfParamsPrfDkLenValue
 	kdfParams[kdfParamsC] = kdfParamsCValue

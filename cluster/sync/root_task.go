@@ -137,7 +137,7 @@ func (r *rootChainTask) PeerID() string {
 }
 
 func (r *rootChainTask) downloadBlockHeaderListAndCheck(start uint32, skip,
-	limit uint32) ([]*types.RootBlockHeader, error) {
+limit uint32) ([]*types.RootBlockHeader, error) {
 	req := &p2p.GetRootBlockHeaderListWithSkipRequest{
 		Skip:      skip,
 		Limit:     limit,
@@ -159,7 +159,7 @@ func (r *rootChainTask) downloadBlockHeaderListAndCheck(start uint32, skip,
 		return nil, errors.New("Remote chain reorg causing empty root block headers ")
 	}
 
-	newLimit := (resp.RootTip.Number + 1 - start) / (skip + 1)
+	newLimit := (resp.RootTip.Number + 1 - start + skip) / (skip + 1)
 	if newLimit > limit {
 		newLimit = limit
 	}

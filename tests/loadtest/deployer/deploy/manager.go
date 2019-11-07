@@ -186,18 +186,12 @@ func (t *ToolManager) StartCluster(clusterIndex int) {
 
 func (t *ToolManager) startMaster(ip string) {
 	session := t.SSHSession[t.ClusterIndex][ip]
-	session.RunCmd("docker exec -itd bjqkc /bin/bash -c 'chmod +x /tmp/QKC/cluster && /tmp/QKC/cluster --cluster_config /tmp/QKC/cluster_config_template.json --json_rpc_host 0.0.0.0 --json_rpc_private_host 0.0.0.0  --pprof --pprofaddr 0.0.0.0 --pprofport 6061 >>master.log 2>&1 '")
+	session.RunCmd("docker exec -itd bjqkc /bin/bash -c 'chmod +x /tmp/QKC/cluster && /tmp/QKC/cluster --cluster_config /tmp/QKC/cluster_config_template.json --json_rpc_host 0.0.0.0 --json_rpc_private_host 0.0.0.0 >>master.log 2>&1 '")
 }
 
 func (t *ToolManager) startSlave(ipList []*SlaveInfo) {
 	for _, v := range ipList {
 		session := t.SSHSession[t.ClusterIndex][v.IP]
-		if v.ServiceName == "S0" {
-			cpuFile := "./" + v.ServiceName + ".prof"
-			cmd := "docker exec -itd bjqkc /bin/bash -c 'chmod +x /tmp/QKC/cluster && /tmp/QKC/cluster --cluster_config /tmp/QKC/cluster_config_template.json --service " + v.ServiceName + "  --pprof --cpuprofile " + cpuFile + "  >> " + v.ServiceName + ".log 2>&1  '"
-			session.RunCmd(cmd)
-			continue
-		}
 		cmd := "docker exec -itd bjqkc /bin/bash -c 'chmod +x /tmp/QKC/cluster && /tmp/QKC/cluster --cluster_config /tmp/QKC/cluster_config_template.json --service " + v.ServiceName + ">> " + v.ServiceName + ".log 2>&1  '"
 		session.RunCmd(cmd)
 	}

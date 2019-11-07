@@ -4,7 +4,6 @@ package debug
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"io"
 	"os"
 	"os/user"
@@ -99,7 +98,6 @@ func (h *HandlerT) StartCPUProfile(file string) error {
 
 // StopCPUProfile stops an ongoing CPU profile.
 func (h *HandlerT) StopCPUProfile() error {
-	fmt.Println("DDDDDDDDDDDDDDDDDDDDDDDD")
 	h.mu.Lock()
 	defer h.mu.Unlock()
 	pprof.StopCPUProfile()
