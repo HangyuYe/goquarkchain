@@ -407,7 +407,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 
 	case qkcMsg.Op == p2p.GetMinorBlockListRequestMsg:
 		go func() {
-			fmt.Println("receive GetMinorBlockListRequestMsg-ready to seri", qkcMsg.RpcID)
+			fmt.Println("receive GetMinorBlockListRequestMsg-ready to seri", qkcMsg.RpcID, time.Now().Second())
 			var minorBlockReq p2p.GetMinorBlockListRequest
 			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockReq); err != nil {
 				fmt.Println("err-1", err)
@@ -418,7 +418,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 			if err != nil {
 				fmt.Println("err-2", err)
 			}
-			fmt.Println("repose GetMinorBlockListRequestMsg", len(resp.MinorBlockList), qkcMsg.RpcID)
+			fmt.Println("repose GetMinorBlockListRequestMsg", len(resp.MinorBlockList), qkcMsg.RpcID, time.Now().Second())
 			err = peer.SendResponse(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
 			if err != nil {
 				fmt.Println("err-3", err)
@@ -427,12 +427,15 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 
 	case qkcMsg.Op == p2p.GetMinorBlockListResponseMsg:
 		go func() {
+			fmt.Println("reccccccccccccc blockList e", qkcMsg.RpcID, time.Now().Second())
 			var minorBlockResp p2p.GetMinorBlockListResponse
 			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockResp); err != nil {
 				//return err
 			}
 			if c := peer.getChan(qkcMsg.RpcID); c != nil {
+				fmt.Println("reccccccccccccc blockList-cc e", qkcMsg.RpcID, time.Now().Second())
 				c <- minorBlockResp.MinorBlockList
+				fmt.Println("reccccccccccccc blockList-cc end", qkcMsg.RpcID, time.Now().Second())
 			} else {
 				log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
 			}
