@@ -284,28 +284,32 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}
 
 	case qkcMsg.Op == p2p.GetRootBlockHeaderListRequestMsg:
-		var blockHeaderReq p2p.GetRootBlockHeaderListRequest
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &blockHeaderReq); err != nil {
-			return err
-		}
+		go func() {
+			var blockHeaderReq p2p.GetRootBlockHeaderListRequest
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &blockHeaderReq); err != nil {
+				//return err
+			}
 
-		resp, err := pm.HandleGetRootBlockHeaderListRequest(&blockHeaderReq)
-		if err != nil {
-			return err
-		}
+			resp, err := pm.HandleGetRootBlockHeaderListRequest(&blockHeaderReq)
+			if err != nil {
+				//return err
+			}
 
-		return peer.SendResponse(p2p.GetRootBlockHeaderListResponseMsg, p2p.Metadata{Branch: 0}, qkcMsg.RpcID, resp)
+			peer.SendResponse(p2p.GetRootBlockHeaderListResponseMsg, p2p.Metadata{Branch: 0}, qkcMsg.RpcID, resp)
+		}()
 
 	case qkcMsg.Op == p2p.GetRootBlockHeaderListResponseMsg:
-		var blockHeaderResp p2p.GetRootBlockHeaderListResponse
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &blockHeaderResp); err != nil {
-			return err
-		}
-		if c := peer.getChan(qkcMsg.RpcID); c != nil {
-			c <- &blockHeaderResp
-		} else {
-			log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
-		}
+		go func() {
+			var blockHeaderResp p2p.GetRootBlockHeaderListResponse
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &blockHeaderResp); err != nil {
+				//return err
+			}
+			if c := peer.getChan(qkcMsg.RpcID); c != nil {
+				c <- &blockHeaderResp
+			} else {
+				log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
+			}
+		}()
 
 	case qkcMsg.Op == p2p.GetRootBlockListRequestMsg:
 		go func() {
@@ -325,37 +329,43 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}()
 
 	case qkcMsg.Op == p2p.GetRootBlockListResponseMsg:
-		var blockResp p2p.GetRootBlockListResponse
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &blockResp); err != nil {
-			return err
-		}
-		if c := peer.getChan(qkcMsg.RpcID); c != nil {
-			c <- blockResp.RootBlockList
-		} else {
-			log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
-		}
+		go func() {
+			var blockResp p2p.GetRootBlockListResponse
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &blockResp); err != nil {
+				//return err
+			}
+			if c := peer.getChan(qkcMsg.RpcID); c != nil {
+				c <- blockResp.RootBlockList
+			} else {
+				log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
+			}
+		}()
 
 	case qkcMsg.Op == p2p.GetRootBlockHeaderListWithSkipRequestMsg:
-		var rBHeadersSkip p2p.GetRootBlockHeaderListWithSkipRequest
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &rBHeadersSkip); err != nil {
-			return err
-		}
-		resp, err := pm.HandleGetRootBlockHeaderListWithSkipRequest(peer.id, qkcMsg.RpcID, &rBHeadersSkip)
-		if err != nil {
-			return err
-		}
-		return peer.SendResponse(p2p.GetRootBlockHeaderListWithSkipResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		go func() {
+			var rBHeadersSkip p2p.GetRootBlockHeaderListWithSkipRequest
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &rBHeadersSkip); err != nil {
+				//return err
+			}
+			resp, err := pm.HandleGetRootBlockHeaderListWithSkipRequest(peer.id, qkcMsg.RpcID, &rBHeadersSkip)
+			if err != nil {
+				//return err
+			}
+			peer.SendResponse(p2p.GetRootBlockHeaderListWithSkipResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		}()
 
 	case qkcMsg.Op == p2p.GetRootBlockHeaderListWithSkipResponseMsg:
-		var minorBlockResp p2p.GetRootBlockHeaderListResponse
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockResp); err != nil {
-			return err
-		}
-		if c := peer.getChan(qkcMsg.RpcID); c != nil {
-			c <- &minorBlockResp
-		} else {
-			log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
-		}
+		go func() {
+			var minorBlockResp p2p.GetRootBlockHeaderListResponse
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockResp); err != nil {
+				//return err
+			}
+			if c := peer.getChan(qkcMsg.RpcID); c != nil {
+				c <- &minorBlockResp
+			} else {
+				log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
+			}
+		}()
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListRequestMsg:
 		go func() {
@@ -410,40 +420,46 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}()
 
 	case qkcMsg.Op == p2p.GetMinorBlockListResponseMsg:
-		var minorBlockResp p2p.GetMinorBlockListResponse
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockResp); err != nil {
-			return err
-		}
-		if c := peer.getChan(qkcMsg.RpcID); c != nil {
-			c <- minorBlockResp.MinorBlockList
-		} else {
-			log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
-		}
+		go func() {
+			var minorBlockResp p2p.GetMinorBlockListResponse
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockResp); err != nil {
+				//return err
+			}
+			if c := peer.getChan(qkcMsg.RpcID); c != nil {
+				c <- minorBlockResp.MinorBlockList
+			} else {
+				log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
+			}
+		}()
 
 	case qkcMsg.Op == p2p.NewRootBlockMsg:
 		panic("not implemented")
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListWithSkipRequestMsg:
-		var mBHeadersSkip p2p.GetMinorBlockHeaderListWithSkipRequest
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &mBHeadersSkip); err != nil {
-			return err
-		}
-		resp, err := pm.HandleGetMinorBlockHeaderListWithSkipRequest(peer.id, qkcMsg.RpcID, &mBHeadersSkip)
-		if err != nil {
-			return err
-		}
-		return peer.SendResponse(p2p.GetMinorBlockHeaderListWithSkipResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		go func() {
+			var mBHeadersSkip p2p.GetMinorBlockHeaderListWithSkipRequest
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &mBHeadersSkip); err != nil {
+				//return err
+			}
+			resp, err := pm.HandleGetMinorBlockHeaderListWithSkipRequest(peer.id, qkcMsg.RpcID, &mBHeadersSkip)
+			if err != nil {
+				//return err
+			}
+			peer.SendResponse(p2p.GetMinorBlockHeaderListWithSkipResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		}()
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListWithSkipResponseMsg:
-		var minorBlockResp p2p.GetMinorBlockHeaderListResponse
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockResp); err != nil {
-			return err
-		}
-		if c := peer.getChan(qkcMsg.RpcID); c != nil {
-			c <- &minorBlockResp
-		} else {
-			log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
-		}
+		go func() {
+			var minorBlockResp p2p.GetMinorBlockHeaderListResponse
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockResp); err != nil {
+				//return err
+			}
+			if c := peer.getChan(qkcMsg.RpcID); c != nil {
+				c <- &minorBlockResp
+			} else {
+				log.Warn(fmt.Sprintf("chan for rpc %d is missing", qkcMsg.RpcID))
+			}
+		}()
 
 	default:
 		return fmt.Errorf("unknown msg code %d", qkcMsg.Op)
