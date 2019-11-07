@@ -432,7 +432,7 @@ func (p *Peer) GetMinorBlockList(hashes []common.Hash, branch uint32) ([]*types.
 		return nil, err
 	}
 
-	timeout := time.NewTimer(requestTimeout)
+	timeout := time.NewTimer(20)
 	select {
 	case obj := <-rpcchan:
 		if ret, ok := obj.([]*types.MinorBlock); !ok {
