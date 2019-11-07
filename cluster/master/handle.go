@@ -210,78 +210,84 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		return errors.New("Unexpected Hello msg")
 
 	case qkcMsg.Op == p2p.NewTipMsg:
-		var tip p2p.Tip
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &tip); err != nil {
-			return err
-		}
-		if tip.RootBlockHeader == nil {
-			return fmt.Errorf("invalid NewTip Request: RootBlockHeader is nil. %d for rpc request %d",
-				qkcMsg.RpcID, qkcMsg.MetaData.Branch)
-		}
-		// handle root tip when branch == 0
-		if qkcMsg.MetaData.Branch == 0 {
-			return pm.HandleNewRootTip(&tip, peer)
-		}
-		return pm.HandleNewMinorTip(qkcMsg.MetaData.Branch, &tip, peer)
+		go func() {
+			var tip p2p.Tip
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &tip); err != nil {
+				//return err
+			}
+			if tip.RootBlockHeader == nil {
+				//return fmt.Errorf("invalid NewTip Request: RootBlockHeader is nil. %d for rpc request %d",
+				//	qkcMsg.RpcID, qkcMsg.MetaData.Branch)
+			}
+			// handle root tip when branch == 0
+			if qkcMsg.MetaData.Branch == 0 {
+				pm.HandleNewRootTip(&tip, peer)
+			}
+			pm.HandleNewMinorTip(qkcMsg.MetaData.Branch, &tip, peer)
+		}()
 
 	case qkcMsg.Op == p2p.NewTransactionListMsg:
-		var trans p2p.NewTransactionList
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &trans); err != nil {
-			return err
-		}
-		if qkcMsg.MetaData.Branch != 0 {
-			return pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &trans)
-		}
-		branchTxMap := make(map[uint32][]*types.Transaction)
-		for _, tx := range trans.TransactionList {
-			fromShardSize, err := pm.clusterConfig.Quarkchain.GetShardSizeByChainId(tx.EvmTx.FromChainID())
-			if err != nil {
-				return err
+		go func() {
+			var trans p2p.NewTransactionList
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &trans); err != nil {
+				//return err
 			}
-			if err := tx.EvmTx.SetFromShardSize(fromShardSize); err != nil {
-				return err
+			if qkcMsg.MetaData.Branch != 0 {
+				pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &trans)
 			}
-			branchTxMap[tx.EvmTx.FromFullShardId()] = append(branchTxMap[tx.EvmTx.FromFullShardId()], tx)
-		}
-		// todo make them run in Parallelized
-		for branch, list := range branchTxMap {
-			if err := pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, branch, &p2p.NewTransactionList{TransactionList: list}); err != nil {
-				return err
+			branchTxMap := make(map[uint32][]*types.Transaction)
+			for _, tx := range trans.TransactionList {
+				fromShardSize, err := pm.clusterConfig.Quarkchain.GetShardSizeByChainId(tx.EvmTx.FromChainID())
+				if err != nil {
+					//return err
+				}
+				if err := tx.EvmTx.SetFromShardSize(fromShardSize); err != nil {
+					//return err
+				}
+				branchTxMap[tx.EvmTx.FromFullShardId()] = append(branchTxMap[tx.EvmTx.FromFullShardId()], tx)
 			}
-		}
+			// todo make them run in Parallelized
+			for branch, list := range branchTxMap {
+				if err := pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, branch, &p2p.NewTransactionList{TransactionList: list}); err != nil {
+					//return err
+				}
+			}
+		}()
 
 	case qkcMsg.Op == p2p.NewBlockMinorMsg:
-		var newBlockMinor p2p.NewBlockMinor
-		branch := qkcMsg.MetaData.Branch
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &newBlockMinor); err != nil {
-			return err
-		}
-		if branch != newBlockMinor.Block.Branch().Value {
-			return fmt.Errorf("invalid NewBlockMinor Request: mismatch branch value from peer %v. in request meta: %d, in minor header: %d",
-				peer.id, branch, newBlockMinor.Block.Branch().Value)
-		}
-		tip := peer.MinorHead(branch)
-		if tip == nil {
-			tip = new(p2p.Tip)
-			tip.MinorBlockHeaderList = make([]*types.MinorBlockHeader, 1, 1)
-		}
-		tip.MinorBlockHeaderList[0] = newBlockMinor.Block.Header()
-		peer.SetMinorHead(branch, tip)
-		clients := pm.getShardConnFunc(branch)
-		if len(clients) == 0 {
-			return fmt.Errorf("invalid branch %d for rpc request %d", qkcMsg.RpcID, branch)
-		}
-		//todo make them run in Parallelized
-		for _, client := range clients {
-			result, err := client.HandleNewMinorBlock(&newBlockMinor)
-			if err != nil {
-				return fmt.Errorf("branch %d handle NewBlockMinorMsg message failed with error: %v", branch, err.Error())
+		go func() {
+			var newBlockMinor p2p.NewBlockMinor
+			branch := qkcMsg.MetaData.Branch
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &newBlockMinor); err != nil {
+				//return err
 			}
-			if !result {
-				return fmt.Errorf("AddMinorBlock (rpcId %d) for branch %d return false",
-					qkcMsg.RpcID, branch)
+			if branch != newBlockMinor.Block.Branch().Value {
+				//return fmt.Errorf("invalid NewBlockMinor Request: mismatch branch value from peer %v. in request meta: %d, in minor header: %d",
+					peer.id, branch, newBlockMinor.Block.Branch().Value)
 			}
-		}
+			tip := peer.MinorHead(branch)
+			if tip == nil {
+				tip = new(p2p.Tip)
+				tip.MinorBlockHeaderList = make([]*types.MinorBlockHeader, 1, 1)
+			}
+			tip.MinorBlockHeaderList[0] = newBlockMinor.Block.Header()
+			peer.SetMinorHead(branch, tip)
+			clients := pm.getShardConnFunc(branch)
+			if len(clients) == 0 {
+				//return fmt.Errorf("invalid branch %d for rpc request %d", qkcMsg.RpcID, branch)
+			}
+			//todo make them run in Parallelized
+			for _, client := range clients {
+				result, err := client.HandleNewMinorBlock(&newBlockMinor)
+				if err != nil {
+					//return fmt.Errorf("branch %d handle NewBlockMinorMsg message failed with error: %v", branch, err.Error())
+				}
+				if !result {
+					//return fmt.Errorf("AddMinorBlock (rpcId %d) for branch %d return false",
+					//	qkcMsg.RpcID, branch)
+				}
+			}
+		}()
 
 	case qkcMsg.Op == p2p.GetRootBlockHeaderListRequestMsg:
 		go func() {
@@ -401,7 +407,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 
 	case qkcMsg.Op == p2p.GetMinorBlockListRequestMsg:
 		go func() {
-			fmt.Println("receive GetMinorBlockListRequestMsg-ready to seri")
+			fmt.Println("receive GetMinorBlockListRequestMsg-ready to seri", qkcMsg.RpcID)
 			var minorBlockReq p2p.GetMinorBlockListRequest
 			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockReq); err != nil {
 				fmt.Println("err-1", err)
@@ -412,7 +418,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 			if err != nil {
 				fmt.Println("err-2", err)
 			}
-			fmt.Println("repose GetMinorBlockListRequestMsg", len(resp.MinorBlockList))
+			fmt.Println("repose GetMinorBlockListRequestMsg", len(resp.MinorBlockList), qkcMsg.RpcID)
 			err = peer.SendResponse(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
 			if err != nil {
 				fmt.Println("err-3", err)
