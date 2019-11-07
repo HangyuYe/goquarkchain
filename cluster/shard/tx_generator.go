@@ -96,7 +96,6 @@ func (t *TxGenerator) Generate(genTxs rpc.GenTxRequest, addTxList func(txs []*ty
 	var (
 		batchScale    = 4000
 		txList        = make([]*types.Transaction, batchScale)
-		txListPrivate = make([]*ecdsa.PrivateKey, batchScale)
 		numTx         = genTxs.NumTxPerShard
 		xShardPercent = int(genTxs.XShardPercent)
 		total         = uint32(0)
@@ -121,22 +120,13 @@ func (t *TxGenerator) Generate(genTxs rpc.GenTxRequest, addTxList func(txs []*ty
 		}
 		total++
 		txList[index] = &types.Transaction{TxType: types.EvmTx, EvmTx: tx}
-		txListPrivate[index] = t.accounts[t.accountIndex].privateKey
 		index++
 
 		if index >= batchScale {
-			log.Info("addTxList start", "fullShardID", t.fullShardId, "ts", time.Now().Sub(ts).Seconds())
-			for k, v := range txList {
-				v.EvmTx, err = types.SignTx(v.EvmTx, t.sender, txListPrivate[k])
-				if err != nil {
-					panic(err)
-				}
-			}
-			log.Info("addTxList start - sign end", "fullShardID", t.fullShardId, "ts", time.Now().Sub(ts).Seconds())
 			if err := addTxList(txList); err != nil {
 				return err
 			}
-			log.Info("addTxList end", "fullShardID", t.fullShardId, "total", total, "numTx", numTx, "durtion", time.Now().Sub(ts).Seconds())
+			log.Info("addTxList end", "total", total, "numTx", numTx, "durtion", time.Now().Sub(ts).Seconds())
 			index = 0
 			ts = time.Now()
 			txList = make([]*types.Transaction, batchScale)
@@ -150,14 +140,6 @@ func (t *TxGenerator) Generate(genTxs rpc.GenTxRequest, addTxList func(txs []*ty
 	}
 
 	if len(txList) != 0 {
-		for index := 0; index < len(txList); index++ {
-			v := txList[index]
-			var err error
-			v.EvmTx, err = types.SignTx(v.EvmTx, t.sender, txListPrivate[index])
-			if err != nil {
-				panic(err)
-			}
-		}
 		if err := addTxList(txList[:index]); err != nil {
 			return err
 		}
@@ -200,6 +182,6 @@ func (t *TxGenerator) createTransaction(prvKey *ecdsa.PrivateKey, nonce uint64,
 	gasPrice := new(big.Int).SetUint64(1000000000)
 	evmTx := types.NewEvmTransaction(nonce, recipient, value, gasLimit,
 		gasPrice, fromFullShardKey, toFullShardKey, t.cfg.NetworkID, 0, sampleTx.EvmTx.Data(), qkcCommon.TokenIDEncode("QKC"), qkcCommon.TokenIDEncode("QKC"))
-	return evmTx, nil
+
 	return types.SignTx(evmTx, t.sender, prvKey)
 }
