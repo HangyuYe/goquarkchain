@@ -1700,8 +1700,8 @@ func (m *MinorBlockChain) GetMiningInfo(address account.Recipient, stake *types.
 }
 
 func (m *MinorBlockChain) AddTxList(txs []*types.Transaction) []error {
-	ts := time.Now()
+	//ts := time.Now()
 	errList := m.txPool.AddLocals(txs)
-	log.Info(m.logInfo, "AddLocals len", len(txs), "ts", time.Now().Sub(ts).Seconds())
+	//log.Info(m.logInfo, "AddLocals len", len(txs), "ts", time.Now().Sub(ts).Seconds())
 	return errList
 }

@@ -604,7 +604,7 @@ func (s *SlaveServerSideOp) HandleNewTip(ctx context.Context, req *rpc.Request) 
 }
 
 func (s *SlaveServerSideOp) AddTransactions(ctx context.Context, req *rpc.Request) (*rpc.Response, error) {
-	ts := time.Now()
+	//ts := time.Now()
 	var (
 		gReq     rpc.NewTransactionList
 		gRes     rpc.HashList
@@ -637,7 +637,7 @@ func (s *SlaveServerSideOp) AddTransactions(ctx context.Context, req *rpc.Reques
 	if response.Data, err = serialize.SerializeToBytes(gRes); err != nil {
 		return nil, err
 	}
-	log.Info("AddTxs duration", "t", time.Now().Sub(ts).Seconds(), "time", time.Now().Sub(ts).Nanoseconds(), "len", len(gReq.TransactionList))
+	//log.Info("AddTxs duration", "t", time.Now().Sub(ts).Seconds(), "time", time.Now().Sub(ts).Nanoseconds(), "len", len(gReq.TransactionList))
 	return response, nil
 }
 
