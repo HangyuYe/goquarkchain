@@ -265,13 +265,6 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 			return fmt.Errorf("invalid NewBlockMinor Request: mismatch branch value from peer %v. in request meta: %d, in minor header: %d",
 				peer.id, branch, newBlockMinor.Block.Branch().Value)
 		}
-		tip := peer.MinorHead(branch)
-		if tip == nil {
-			tip = new(p2p.Tip)
-			tip.MinorBlockHeaderList = make([]*types.MinorBlockHeader, 1, 1)
-		}
-		tip.MinorBlockHeaderList[0] = newBlockMinor.Block.Header()
-		peer.SetMinorHead(branch, tip)
 		clients := pm.getShardConnFunc(branch)
 		if len(clients) == 0 {
 			return fmt.Errorf("invalid branch %d for rpc request %d", qkcMsg.RpcID, branch)
@@ -288,6 +281,13 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 					qkcMsg.RpcID, branch)
 			}
 		}
+		tip := peer.MinorHead(branch)
+		if tip == nil {
+			tip = new(p2p.Tip)
+			tip.MinorBlockHeaderList = make([]*types.MinorBlockHeader, 1, 1)
+		}
+		tip.MinorBlockHeaderList[0] = newBlockMinor.Block.Header()
+		peer.SetMinorHead(branch, tip)
 
 
 	case qkcMsg.Op == p2p.GetRootBlockHeaderListRequestMsg:
