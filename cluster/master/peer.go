@@ -17,6 +17,7 @@ import (
 	"github.com/QuarkChain/goquarkchain/p2p"
 	"github.com/QuarkChain/goquarkchain/serialize"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/log"
 )
 
 var (
@@ -121,9 +122,12 @@ func (p *Peer) broadcast() {
 					"number", nBlock.block.NumberU64(), "hash", nBlock.block.Hash(), "branch", nBlock.branch, "error", err.Error())
 				return
 			}
-			p.Log().Trace("Broadcast minor block", "number", nBlock.block.NumberU64(), "hash", nBlock.block.Hash(), "branch", nBlock.branch)
+			log.Info("Broadcast minor block", "branch", nBlock.branch,"number", nBlock.block.NumberU64(), "hash", nBlock.block.Hash())
 
 		case nTip := <-p.queuedTip:
+			if nTip.branch!=0{
+				log.Info("Broadcast new tip","branch",nTip.branch,"Branch",nTip.tip.MinorBlockHeaderList[0].Branch,"number",nTip.tip.MinorBlockHeaderList[0].Number, "hash", nTip.tip.MinorBlockHeaderList[0].Hash())
+			}
 			if err := p.SendNewTip(nTip.branch, nTip.tip); err != nil {
 				return
 			}

@@ -188,7 +188,7 @@ func (s *ShardBackend) HandleNewTip(rBHeader *types.RootBlockHeader, mBHeader *t
 		log.Error("Failed to add minor chain task,", "hash", mBHeader.Hash(), "height", mBHeader.Number)
 	}
 
-	log.Info("Handle new tip received new tip with height", "branch",mBHeader.Branch,"shard height", mBHeader.Number)
+	log.Info("Handle new tip received new tip with height", "branch",mBHeader.Branch,"shard height", mBHeader.Number,"hash",mBHeader.Hash().String())
 	return nil
 }
 
