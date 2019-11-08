@@ -5,6 +5,7 @@ import (
 	"github.com/QuarkChain/goquarkchain/core/types"
 	"github.com/QuarkChain/goquarkchain/p2p"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/log"
 	"github.com/pkg/errors"
 )
 
@@ -26,6 +27,7 @@ func (api *PrivateP2PAPI) BroadcastMinorBlock(branch uint32, block *types.MinorB
 		return errors.New("branch mismatch")
 	}
 	for _, peer := range api.peers.Peers() {
+		log.Info("peer-senderMinor","id",peer.id,"branch",branch,"block",block.Header().Number,"hash",block.Header().Hash().String())
 		peer.AsyncSendNewMinorBlock(branch, block)
 	}
 	return nil
