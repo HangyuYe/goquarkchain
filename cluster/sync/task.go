@@ -87,12 +87,20 @@ func (t *task) Run(bc blockchain) error {
 			var blocks []types.IBlock
 			if len(hashlist) > t.batchSize {
 				blocks, err = t.getBlocks(hashlist[:t.batchSize])
+				if err != nil {
+					log.Error("EEEEE-sb-1", err)
+					return err
+				}
 				if len(blocks) != t.batchSize {
 					return fmt.Errorf("unmatched block length-1, expect: %d, actual: %d", t.batchSize, len(blocks))
 				}
 				hashlist = hashlist[t.batchSize:]
 			} else {
 				blocks, err = t.getBlocks(hashlist)
+				if err != nil {
+					log.Error("EEEEE-sb-2", err)
+					return err
+				}
 				if len(blocks) != len(hashlist) {
 					return fmt.Errorf("unmatched block length-2, expect: %d, actual: %d hash:%v", len(hashlist), len(blocks), hashlist[0].String())
 				}
