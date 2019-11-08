@@ -1128,7 +1128,7 @@ func (m *MinorBlockChain) InsertChainForDeposits(chain []types.IBlock, isCheckDB
 	m.PostChainEvents(events, logs)
 	confirmed := m.confirmedHeaderTip
 	if confirmed == nil {
-		log.Warn("confirmed is nil")
+		//log.Warn("confirmed is nil")
 	} else {
 		log.Debug(m.logInfo, "tip", m.CurrentBlock().NumberU64(), "tipHash", m.CurrentBlock().Hash().String(), "to add", chain[0].NumberU64(), "hash", chain[0].NumberU64(), "confirmed", confirmed.Number)
 	}
@@ -1884,7 +1884,7 @@ func (m *MinorBlockChain) GetRootChainStakes(coinbase account.Recipient, lastMin
 	vmenv := vm.NewEVM(context, evmState, m.ethChainConfig, *m.GetVMConfig())
 	gp := new(GasPool).AddGas(evmState.GetGasLimit().Uint64())
 	output, _, failed, err := ApplyMessage(vmenv, msg, gp)
-	if err != nil || output == nil || failed{
+	if err != nil || output == nil || failed {
 		return nil, nil, err
 	}
 	stake := new(big.Int).SetBytes(output[:32])
