@@ -229,26 +229,26 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		go func() {
 			var trans p2p.NewTransactionList
 			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &trans); err != nil {
-				return err
+				//return err
 			}
 			if qkcMsg.MetaData.Branch != 0 {
-				return pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &trans)
+				pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &trans)
 			}
 			branchTxMap := make(map[uint32][]*types.Transaction)
 			for _, tx := range trans.TransactionList {
 				fromShardSize, err := pm.clusterConfig.Quarkchain.GetShardSizeByChainId(tx.EvmTx.FromChainID())
 				if err != nil {
-					return err
+					//return err
 				}
 				if err := tx.EvmTx.SetFromShardSize(fromShardSize); err != nil {
-					return err
+					//return err
 				}
 				branchTxMap[tx.EvmTx.FromFullShardId()] = append(branchTxMap[tx.EvmTx.FromFullShardId()], tx)
 			}
 			// todo make them run in Parallelized
 			for branch, list := range branchTxMap {
 				if err := pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, branch, &p2p.NewTransactionList{TransactionList: list}); err != nil {
-					return err
+					//return err
 				}
 			}
 		}()
