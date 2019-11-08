@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"math/big"
-	"reflect"
 	"strings"
 
 	qkcom "github.com/QuarkChain/goquarkchain/common"
