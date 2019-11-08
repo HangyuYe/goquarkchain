@@ -1,9 +1,6 @@
 package master
 
 import (
-	"fmt"
-	"time"
-
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	"github.com/QuarkChain/goquarkchain/core/types"
 	"github.com/QuarkChain/goquarkchain/p2p"
@@ -78,7 +75,6 @@ func (api *PrivateP2PAPI) GetMinorBlockList(hashList []common.Hash, branch uint3
 	if peer == nil {
 		return nil, errNotRegistered
 	}
-	fmt.Println("GetMinorBlockList -peer", time.Now().Unix())
 	blocks, err := peer.GetMinorBlockList(hashList, branch)
 	return blocks, err
 }

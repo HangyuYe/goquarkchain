@@ -389,7 +389,6 @@ func (p *Peer) GetRootBlockList(hashes []common.Hash) ([]*types.RootBlock, error
 	rpcId, rpcchan := p.getRpcIdWithChan()
 	defer p.deleteChan(rpcId)
 
-	fmt.Println("ready to request", p.Node().String(), "len", len(hashes))
 	err := p.requestRootBlockList(rpcId, hashes)
 	if err != nil {
 		return nil, err
@@ -401,7 +400,6 @@ func (p *Peer) GetRootBlockList(hashes []common.Hash) ([]*types.RootBlock, error
 		if ret, ok := obj.([]*types.RootBlock); !ok {
 			panic("invalid return result in GetRootBlockList")
 		} else {
-			fmt.Println("end to request", p.Node().String(), "len", len(ret))
 			return ret, nil
 		}
 	case <-timeout.C:
@@ -425,15 +423,12 @@ func (p *Peer) requestMinorBlockList(rpcId uint64, hashList []common.Hash, branc
 
 func (p *Peer) GetMinorBlockList(hashes []common.Hash, branch uint32) ([]*types.MinorBlock, error) {
 	rpcId, rpcchan := p.getRpcIdWithChan()
-	fmt.Println("ready to getMinorBlockList", rpcId, branch, len(hashes), time.Now().Unix())
 	defer p.deleteChan(rpcId)
 
-	fmt.Println("ready to getMinorBlockList requestMinorBlockList")
 	err := p.requestMinorBlockList(rpcId, hashes, branch)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("ready to getMinorBlockList requestMinorBlockList-end", err, rpcId)
 
 	timeout := time.NewTimer(requestTimeout)
 	select {
@@ -444,7 +439,6 @@ func (p *Peer) GetMinorBlockList(hashes []common.Hash, branch uint32) ([]*types.
 			return ret, nil
 		}
 	case <-timeout.C:
-		fmt.Println("TTTTTTTTT---1", rpcId, time.Now().Unix())
 		return nil, fmt.Errorf("peer %v return GetMinorBlockList-1 disc Read Time out for rpcid %d", p.id, rpcId)
 	}
 }
