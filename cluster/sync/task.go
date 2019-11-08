@@ -98,7 +98,7 @@ func (t *task) Run(bc blockchain) error {
 			} else {
 				blocks, err = t.getBlocks(hashlist)
 				if err != nil {
-					log.Error("EEEEE-sb-2", err)
+					log.Error("EEEEE-sb-2", "err", err)
 					return err
 				}
 				if len(blocks) != len(hashlist) {
