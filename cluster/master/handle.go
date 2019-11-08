@@ -220,10 +220,8 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}
 		// handle root tip when branch == 0
 		if qkcMsg.MetaData.Branch == 0 {
-			//log.Info("NewTip","branch",qkcMsg.MetaData.Branch,"number",tip.MinorBlockHeaderList[0].Number,"hash",tip.MinorBlockHeaderList[0].Hash().String())
 			return pm.HandleNewRootTip(&tip, peer)
 		}
-		log.Info("NewTip--","branch",qkcMsg.MetaData.Branch,"number",tip.MinorBlockHeaderList[0].Number,"hash",tip.MinorBlockHeaderList[0].Hash().String())
 		return pm.HandleNewMinorTip(qkcMsg.MetaData.Branch, &tip, peer)
 
 	case qkcMsg.Op == p2p.NewTransactionListMsg:
@@ -265,11 +263,17 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 			return fmt.Errorf("invalid NewBlockMinor Request: mismatch branch value from peer %v. in request meta: %d, in minor header: %d",
 				peer.id, branch, newBlockMinor.Block.Branch().Value)
 		}
+		tip := peer.MinorHead(branch)
+		if tip == nil {
+			tip = new(p2p.Tip)
+			tip.MinorBlockHeaderList = make([]*types.MinorBlockHeader, 1, 1)
+		}
+		tip.MinorBlockHeaderList[0] = newBlockMinor.Block.Header()
+		peer.SetMinorHead(branch, tip)
 		clients := pm.getShardConnFunc(branch)
 		if len(clients) == 0 {
 			return fmt.Errorf("invalid branch %d for rpc request %d", qkcMsg.RpcID, branch)
 		}
-		log.Info("new minor block","branch",newBlockMinor.Block.Header().Branch.Value,"number",newBlockMinor.Block.Header().Number,"hash",newBlockMinor.Block.Hash().String())
 		//todo make them run in Parallelized
 		for _, client := range clients {
 			result, err := client.HandleNewMinorBlock(&newBlockMinor)
@@ -281,14 +285,6 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 					qkcMsg.RpcID, branch)
 			}
 		}
-		tip := peer.MinorHead(branch)
-		if tip == nil {
-			tip = new(p2p.Tip)
-			tip.MinorBlockHeaderList = make([]*types.MinorBlockHeader, 1, 1)
-		}
-		tip.MinorBlockHeaderList[0] = newBlockMinor.Block.Header()
-		peer.SetMinorHead(branch, tip)
-
 
 	case qkcMsg.Op == p2p.GetRootBlockHeaderListRequestMsg:
 		var blockHeaderReq p2p.GetRootBlockHeaderListRequest

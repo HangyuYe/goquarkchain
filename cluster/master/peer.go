@@ -129,9 +129,6 @@ func (p *Peer) broadcast() {
 
 		case nTip := <-p.queuedTip:
 			go func() {
-				if nTip.branch!=0{
-					log.Info("Broadcast new tip","branch",nTip.branch,"Branch",nTip.tip.MinorBlockHeaderList[0].Branch,"number",nTip.tip.MinorBlockHeaderList[0].Number, "hash", nTip.tip.MinorBlockHeaderList[0].Hash())
-				}
 				if err := p.SendNewTip(nTip.branch, nTip.tip); err != nil {
 					return
 				}

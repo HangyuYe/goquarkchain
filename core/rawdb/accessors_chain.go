@@ -9,7 +9,6 @@ import (
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/ethereum/go-ethereum/rlp"
 	"math/big"
-	"runtime/debug"
 )
 
 const DBLOG = "db-operation"
@@ -283,7 +282,6 @@ func WriteMinorBlock(db DatabaseWriter, block *types.MinorBlock) {
 	if err != nil {
 		log.Crit("Failed to serialize body", "err", err)
 	}
-	debug.PrintStack()
 	log.Info(DBLOG, "Write MinorBlock branch", block.Branch().Value, "height", block.NumberU64(), "hash", block.Hash().String(), "len(tx)", len(block.Transactions()))
 	if err := db.Put(blockKey(block.Hash()), data); err != nil {
 		log.Crit("Failed to store minor block body", "err", err)

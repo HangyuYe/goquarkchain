@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	"github.com/QuarkChain/goquarkchain/serialize"
-	"github.com/ethereum/go-ethereum/log"
 	"sync"
 )
 
@@ -56,12 +55,10 @@ func (m *MasterServerSideOp) AddMinorBlockHeaderList(ctx context.Context, req *r
 
 // p2p apis
 func (m *MasterServerSideOp) BroadcastNewTip(ctx context.Context, req *rpc.Request) (*rpc.Response, error) {
-
 	broadcastTipReq := new(rpc.BroadcastNewTip)
 	if err := serialize.DeserializeFromBytes(req.Data, broadcastTipReq); err != nil {
 		return nil, err
 	}
-	log.Info("Ready to broadcast tip","branch",broadcastTipReq.Branch,"number",broadcastTipReq.MinorBlockHeaderList[0].Number,"hash",broadcastTipReq.MinorBlockHeaderList[0].Hash().String())
 	err := m.p2pApi.BroadcastNewTip(broadcastTipReq.Branch, broadcastTipReq.RootBlockHeader, broadcastTipReq.MinorBlockHeaderList)
 	if err != nil {
 		return nil, err
@@ -87,7 +84,6 @@ func (m *MasterServerSideOp) BroadcastNewMinorBlock(ctx context.Context, req *rp
 	if err := serialize.DeserializeFromBytes(req.Data, broadcastMinorBlockReq); err != nil {
 		return nil, err
 	}
-	log.Info("Ready to broad","branch",broadcastMinorBlockReq.Branch,"number",broadcastMinorBlockReq.MinorBlock.Number(),"hash",broadcastMinorBlockReq.MinorBlock.Hash().String())
 	err := m.p2pApi.BroadcastMinorBlock(broadcastMinorBlockReq.Branch, broadcastMinorBlockReq.MinorBlock)
 	if err != nil {
 		return nil, err
