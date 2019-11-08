@@ -8,6 +8,7 @@ import (
 	"github.com/QuarkChain/goquarkchain/p2p"
 	"github.com/QuarkChain/goquarkchain/serialize"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/log"
 )
 
 func (s *ConnManager) SendMinorBlockHeaderToMaster(request *rpc.AddMinorBlockHeaderRequest) error {
@@ -48,6 +49,7 @@ func (s *ConnManager) SendMinorBlockHeaderListToMaster(request *rpc.AddMinorBloc
 }
 func (s *ConnManager) BroadcastNewTip(mHeaderLst []*types.MinorBlockHeader,
 	rHeader *types.RootBlockHeader, branch uint32) error {
+		log.Info("ready to braoacast-tip","branch",branch,"number",mHeaderLst[0].Branch,"hash",mHeaderLst[0].Hash().String())
 	var (
 		gReq = rpc.BroadcastNewTip{MinorBlockHeaderList: mHeaderLst, RootBlockHeader: rHeader, Branch: branch}
 	)
@@ -73,6 +75,7 @@ func (s *ConnManager) BroadcastTransactions(txs []*types.Transaction, branch uin
 }
 
 func (s *ConnManager) BroadcastMinorBlock(minorBlock *types.MinorBlock, branch uint32) error {
+	log.Info("ready to BroadcastMinorBlock","branch",branch,"number",minorBlock.Branch,"hash",minorBlock.Hash().String())
 	var (
 		gReq = rpc.BroadcastMinorBlock{MinorBlock: minorBlock, Branch: branch}
 	)
