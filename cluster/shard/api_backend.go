@@ -175,7 +175,7 @@ func (s *ShardBackend) HandleNewTip(rBHeader *types.RootBlockHeader, mBHeader *t
 	}
 
 	if s.MinorBlockChain.GetRootBlockByHash(mBHeader.PrevRootBlockHash) == nil {
-		//log.Warn(s.logInfo, "preRootBlockHash do not have height ,no need to add task", mBHeader.Number, "preRootHash", mBHeader.PrevRootBlockHash.String())
+		log.Debug(s.logInfo, "preRootBlockHash do not have height ,no need to add task", mBHeader.Number, "preRootHash", mBHeader.PrevRootBlockHash.String())
 		return nil
 	}
 	if s.MinorBlockChain.CurrentBlock().Number() >= mBHeader.Number {
@@ -188,7 +188,7 @@ func (s *ShardBackend) HandleNewTip(rBHeader *types.RootBlockHeader, mBHeader *t
 		log.Error("Failed to add minor chain task,", "hash", mBHeader.Hash(), "height", mBHeader.Number)
 	}
 
-	//log.Info("Handle new tip received new tip with height", "shard height", mBHeader.Number)
+	log.Debug("Handle new tip received new tip with height", "shard height", mBHeader.Number)
 	return nil
 }
 
@@ -271,9 +271,13 @@ func (s *ShardBackend) AddMinorBlock(block *types.MinorBlock) error {
 	//TODO support BLOCK_COMMITTING
 	currHead := s.MinorBlockChain.CurrentBlock().Header()
 	_, xshardLst, err := s.MinorBlockChain.InsertChainForDeposits([]types.IBlock{block}, false)
-	if err != nil || len(xshardLst) != 1 {
-		//log.Error("Failed to add minor block", "err", err, "len", len(xshardLst))
+	if err != nil {
+		log.Error("Failed to add minor block", "err", err, "len", len(xshardLst))
 		return err
+	}
+	if len(xshardLst) != 1 {
+		log.Info("Failed to add minor block-1", "len(XshardList)", len(xshardLst), "block.Number", block.Number(), "block.Hash", block.Hash().String())
+		return nil
 	}
 	// only remove from pool if the block successfully added to state,
 	// this may cache failed blocks but prevents them being broadcasted more than needed
@@ -350,9 +354,13 @@ func (s *ShardBackend) AddBlockListForSync(blockLst []*types.MinorBlock) (map[co
 		//TODO:support BLOCK_COMMITTING
 		coinbaseAmountList[block.Hash()] = block.CoinbaseAmount()
 		_, xshardLst, err := s.MinorBlockChain.InsertChainForDeposits([]types.IBlock{block}, false)
-		if err != nil || len(xshardLst) != 1 {
+		if err != nil {
 			log.Error("Failed to add minor block", "err", err, "blockNumber", block.Header().Number, "blockHash", block.Header().Hash().String())
 			return nil, err
+		}
+		if len(xshardLst) != 1 {
+			log.Info("Failed to add minor block", "len(xshardLst)", len(xshardLst), "blockNumber", block.Header().Number, "blockHash", block.Header().Hash().String())
+			return nil
 		}
 		s.mBPool.delBlockInPool(block.Hash())
 		prevRootHeight := s.MinorBlockChain.GetRootBlockByHash(block.PrevRootBlockHash())

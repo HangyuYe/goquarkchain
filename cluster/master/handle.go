@@ -396,7 +396,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 			peer.SendResponse(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
 
 			if len(minorBlockReq.MinorBlockHashList) != len(resp.MinorBlockList) {
-				panic("sb -hhhhh")
+				panic(fmt.Errorf("fix bug please%v%v", len(minorBlockReq.MinorBlockHashList), len(resp.MinorBlockList)))
 			}
 
 		}()

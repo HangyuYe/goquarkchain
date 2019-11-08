@@ -1127,9 +1127,7 @@ func (m *MinorBlockChain) InsertChainForDeposits(chain []types.IBlock, isCheckDB
 
 	m.PostChainEvents(events, logs)
 	confirmed := m.confirmedHeaderTip
-	if confirmed == nil {
-		//log.Warn("confirmed is nil")
-	} else {
+	if confirmed != nil {
 		log.Debug(m.logInfo, "tip", m.CurrentBlock().NumberU64(), "tipHash", m.CurrentBlock().Hash().String(), "to add", chain[0].NumberU64(), "hash", chain[0].NumberU64(), "confirmed", confirmed.Number)
 	}
 
