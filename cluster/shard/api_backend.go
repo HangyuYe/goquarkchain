@@ -214,7 +214,7 @@ func (s *ShardBackend) GetMinorBlock(mHash common.Hash, height *uint64) (mBlock 
 	return nil, errors.New("minor block not found")
 }
 
-func (s *ShardBackend) NewMinorBlock(block *types.MinorBlock) (err error) {
+func (s *ShardBackend) NewMinorBlock(block *types.MinorBlock,needBroadcast bool) (err error) {
 	log.Debug(s.logInfo, "NewMinorBlock height", block.NumberU64(), "hash", block.Hash().String())
 	defer log.Debug(s.logInfo, "NewMinorBlock", "end")
 	// TODO synchronizer.running
@@ -256,9 +256,12 @@ func (s *ShardBackend) NewMinorBlock(block *types.MinorBlock) (err error) {
 	}
 
 	s.mBPool.setBlockInPool(block.Header())
-	if err = s.conn.BroadcastMinorBlock(block, s.branch.Value); err != nil {
-		return err
+	if needBroadcast{
+		if err = s.conn.BroadcastMinorBlock(block, s.branch.Value); err != nil {
+			return err
+		}
 	}
+
 	if s.MinorBlockChain.HasBlock(block.Hash()){
 		return nil
 	}
@@ -401,7 +404,7 @@ func (s *ShardBackend) SubmitWork(headerHash common.Hash, nonce uint64, mixHash 
 }
 
 func (s *ShardBackend) InsertMinedBlock(block types.IBlock) error {
-	return s.NewMinorBlock(block.(*types.MinorBlock))
+	return s.NewMinorBlock(block.(*types.MinorBlock),true)
 }
 
 func (s *ShardBackend) GetTip() uint64 {
