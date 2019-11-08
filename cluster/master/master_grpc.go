@@ -7,7 +7,6 @@ import (
 
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	"github.com/QuarkChain/goquarkchain/serialize"
-	"github.com/ethereum/go-ethereum/log"
 )
 
 type MasterServerSideOp struct {
