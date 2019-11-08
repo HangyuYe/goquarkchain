@@ -94,9 +94,9 @@ func NewMinorChainTask(
 			return iHeaders, nil
 		},
 		getBlocks: func(hashes []common.Hash) (ret []types.IBlock, err error) {
-			fmt.Println("minor ready to getBlocks-GetMinorBlockList-start", len(hashes), header.Branch.Value, time.Now().Unix())
+			fmt.Println("minor ready to getBlocks-GetMinorBlockList-start", hashes[0].String(), len(hashes), header.Branch.Value, time.Now().Unix())
 			mblocks, err := p.GetMinorBlockList(hashes, header.Branch.Value)
-			fmt.Println("minor ready to getBlocks-GetMinorBlockList-end", len(hashes), len(mblocks), header.Branch.Value, time.Now().Unix())
+			fmt.Println("minor ready to getBlocks-GetMinorBlockList-end", hashes[0].String(), len(hashes), len(mblocks), header.Branch.Value, time.Now().Unix())
 			if err != nil {
 				return nil, err
 			}
