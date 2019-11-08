@@ -3,14 +3,13 @@ package sync
 import (
 	"errors"
 	"fmt"
-	"math/big"
-
 	"github.com/QuarkChain/goquarkchain/account"
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	qcom "github.com/QuarkChain/goquarkchain/common"
 	"github.com/QuarkChain/goquarkchain/core/types"
 	"github.com/QuarkChain/goquarkchain/p2p"
 	"github.com/ethereum/go-ethereum/common"
+	"math/big"
 )
 
 type minorSyncerPeer interface {
@@ -96,9 +95,6 @@ func NewMinorChainTask(
 			mblocks, err := p.GetMinorBlockList(hashes, header.Branch.Value)
 			if err != nil {
 				return nil, err
-			}
-			if len(hashes) != len(mblocks) {
-				panic(fmt.Errorf("sb %v %v", len(hashes), len(mblocks)))
 			}
 			for _, mb := range mblocks {
 				ret = append(ret, mb)

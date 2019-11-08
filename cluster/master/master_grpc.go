@@ -2,11 +2,9 @@ package master
 
 import (
 	"context"
-	"fmt"
-	"sync"
-
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	"github.com/QuarkChain/goquarkchain/serialize"
+	"sync"
 )
 
 type MasterServerSideOp struct {
@@ -112,9 +110,6 @@ func (m *MasterServerSideOp) GetMinorBlockList(ctx context.Context, req *rpc.Req
 	bytes, err := serialize.SerializeToBytes(getMinorBlockListRes)
 	if err != nil {
 		return nil, err
-	}
-	if len(getMinorBlockListRes.MinorBlockList) != len(getMinorBlockListReq.MinorBlockHashList) {
-		panic(fmt.Errorf("sb--44 %v %v", len(getMinorBlockListReq.MinorBlockHashList), len(getMinorBlockListRes.MinorBlockList)))
 	}
 
 	return &rpc.Response{
