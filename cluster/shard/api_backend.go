@@ -314,6 +314,7 @@ func (s *ShardBackend) AddMinorBlock(block *types.MinorBlock) error {
 		ShardStats:        status,
 		CoinbaseAmountMap: block.CoinbaseAmount(),
 	}
+	fmt.Println("SendMinorBlockHeaderToMaster-", requests.MinorBlockHeader.Branch.Value, requests.MinorBlockHeader.Number, requests.MinorBlockHeader.Hash().String())
 	err = s.conn.SendMinorBlockHeaderToMaster(requests)
 	if err != nil {
 		s.setHead(currHead.Number)
@@ -374,6 +375,9 @@ func (s *ShardBackend) AddBlockListForSync(blockLst []*types.MinorBlock) (map[co
 
 	req := &rpc.AddMinorBlockHeaderListRequest{
 		MinorBlockHeaderList: uncommittedBlockHeaderList,
+	}
+	for _, v := range req.MinorBlockHeaderList {
+		fmt.Println("SendMinorBlockHeaderListToMaster", v.Branch.Value, v.Number, v.Hash().String())
 	}
 	if err := s.conn.SendMinorBlockHeaderListToMaster(req); err != nil {
 		return nil, err

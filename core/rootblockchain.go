@@ -29,7 +29,7 @@ import (
 	"github.com/ethereum/go-ethereum/ethdb"
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/ethereum/go-ethereum/log"
-	"github.com/hashicorp/golang-lru"
+	lru "github.com/hashicorp/golang-lru"
 )
 
 var (
@@ -1289,6 +1289,7 @@ func (bc *RootBlockChain) CreateBlockToMine(mHeaderList []*types.MinorBlockHeade
 func (bc *RootBlockChain) CalculateRootBlockCoinBase(rootBlock *types.RootBlock) (*types.TokenBalances, error) {
 	for _, header := range rootBlock.MinorBlockHeaders() {
 		if !bc.ContainMinorBlockByHash(header.Hash()) {
+			log.Error("not contain minorBlock", "number", header.Number, "branch", header.Branch.Value, "hash", header.Hash().String())
 			return nil, fmt.Errorf("rootBlockChain not contain minorBlock hash:%v", header.Hash().String())
 		}
 	}

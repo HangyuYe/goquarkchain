@@ -2,9 +2,11 @@ package master
 
 import (
 	"context"
+	"fmt"
+	"sync"
+
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	"github.com/QuarkChain/goquarkchain/serialize"
-	"sync"
 )
 
 type MasterServerSideOp struct {
@@ -25,6 +27,7 @@ func (m *MasterServerSideOp) AddMinorBlockHeader(ctx context.Context, req *rpc.R
 	if err := serialize.DeserializeFromBytes(req.Data, data); err != nil {
 		return nil, err
 	}
+	fmt.Println("AddValidatedMinorBlockHeader-singer", data.MinorBlockHeader.Branch.Value, data.MinorBlockHeader.Number, data.MinorBlockHeader.Hash().String())
 	m.master.rootBlockChain.AddValidatedMinorBlockHeader(data.MinorBlockHeader.Hash(), data.CoinbaseAmountMap)
 	m.master.UpdateShardStatus(data.ShardStats)
 	m.master.UpdateTxCountHistory(data.TxCount, data.XShardTxCount, data.MinorBlockHeader.Time)
@@ -48,6 +51,7 @@ func (m *MasterServerSideOp) AddMinorBlockHeaderList(ctx context.Context, req *r
 		return nil, err
 	}
 	for _, header := range gReq.MinorBlockHeaderList {
+		fmt.Println("AddValidatedMinorBlockHeader-list", header.Branch.Value, header.Number, header.Hash().String())
 		m.master.rootBlockChain.AddValidatedMinorBlockHeader(header.Hash(), header.CoinbaseAmount)
 	}
 	return &rpc.Response{RpcId: req.RpcId}, nil
