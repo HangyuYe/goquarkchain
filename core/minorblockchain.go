@@ -589,6 +589,13 @@ func (m *MinorBlockChain) HasBlock(hash common.Hash) bool {
 	return m.IsMinorBlockCommittedByHash(hash)
 }
 
+func (m *MinorBlockChain) hasBlock(hash common.Hash) bool {
+	if m.blockCache.Contains(hash) {
+		return true
+	}
+	return rawdb.HasBlock(m.db, hash)
+}
+
 // HasState checks if state trie is fully present in the database or not.
 func (m *MinorBlockChain) HasState(hash common.Hash) bool {
 	_, err := m.stateCache.OpenTrie(hash)
@@ -599,7 +606,7 @@ func (m *MinorBlockChain) HasState(hash common.Hash) bool {
 // in the database or not, caching it if present.
 func (m *MinorBlockChain) HasBlockAndState(hash common.Hash) bool {
 	// Check first that the block itself is known
-	flag := m.HasBlock(hash)
+	flag := m.hasBlock(hash)
 	if !flag {
 		return false
 	}
