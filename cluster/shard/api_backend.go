@@ -375,7 +375,7 @@ func (s *ShardBackend) AddBlockListForSync(blockLst []*types.MinorBlock) (map[co
 		}
 		if len(xshardLst) != 1 {
 			log.Info("Failed to add minor block", "len(xshardLst)", len(xshardLst), "blockNumber", block.Header().Number, "blockHash", block.Header().Hash().String())
-			return nil, nil
+			//return nil, nil
 		}
 		s.mBPool.delBlockInPool(block.Hash())
 		prevRootHeight := s.MinorBlockChain.GetRootBlockByHash(block.PrevRootBlockHash())
