@@ -93,7 +93,6 @@ func (t *task) Run(bc blockchain) error {
 				}
 				hashlist = hashlist[t.batchSize:]
 			} else {
-				fmt.Println("unmatched block-start", reflect.TypeOf(t), len(hashlist), len(blocks))
 				blocks, err = t.getBlocks(hashlist)
 				if len(blocks) != len(hashlist) {
 					return fmt.Errorf("unmatched block length-2, expect: %d, actual: %d", len(hashlist), len(blocks))

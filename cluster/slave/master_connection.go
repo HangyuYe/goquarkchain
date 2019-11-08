@@ -2,7 +2,6 @@ package slave
 
 import (
 	"errors"
-	"fmt"
 
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	"github.com/QuarkChain/goquarkchain/core/types"
@@ -97,15 +96,15 @@ func (s *ConnManager) GetMinorBlocks(mHeaderList []common.Hash, peerId string, b
 		return nil, err
 	}
 
-	fmt.Println("OpGetMinorBlockList", len(mHeaderList))
 	res, err = s.masterClient.client.Call(s.masterClient.target, &rpc.Request{Op: rpc.OpGetMinorBlockList, Data: data})
 	if err != nil {
 		return nil, err
 	}
+
 	if err = serialize.DeserializeFromBytes(res.Data, &gRep); err != nil {
 		return nil, err
 	}
-	fmt.Println("OpGetMinorBlockList-end", len(mHeaderList), len(gReq.MinorBlockHashList))
+
 	return gRep.MinorBlockList, nil
 }
 
