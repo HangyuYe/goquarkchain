@@ -104,9 +104,7 @@ func NewRootChainTask(
 			return iHeaders, nil
 		},
 		getBlocks: func(hashes []common.Hash) (ret []types.IBlock, err error) {
-			fmt.Println("root-task-getBlocks-ready", len(hashes))
 			rblocks, err := p.GetRootBlockList(hashes)
-			fmt.Println("root-task-getBlocks-end", len(rblocks), len(hashes), err)
 			if err != nil {
 				return nil, err
 			}
@@ -139,7 +137,7 @@ func (r *rootChainTask) PeerID() string {
 }
 
 func (r *rootChainTask) downloadBlockHeaderListAndCheck(start uint32, skip,
-	limit uint32) ([]*types.RootBlockHeader, error) {
+limit uint32) ([]*types.RootBlockHeader, error) {
 	req := &p2p.GetRootBlockHeaderListWithSkipRequest{
 		Skip:      skip,
 		Limit:     limit,

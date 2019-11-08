@@ -478,11 +478,11 @@ func (pm *ProtocolManager) HandleNewMinorTip(branch uint32, tip *p2p.Tip, peer *
 			minorTip.RootBlockHeader.Hash() != tip.RootBlockHeader.Hash() {
 			return fmt.Errorf("best observed root header changed with same height %d", minorTip.RootBlockHeader.Number)
 		}
-		//if minorTip.RootBlockHeader.ToTalDifficulty.Cmp(tip.RootBlockHeader.ToTalDifficulty) == 0 &&
-		//	minorTip.MinorBlockHeaderList[0].Number > tip.MinorBlockHeaderList[0].Number {
-		//	return fmt.Errorf("best observed minor header is decreasing %d < %d",
-		//		tip.MinorBlockHeaderList[0].Number, minorTip.MinorBlockHeaderList[0].Number)
-		//}
+		if minorTip.RootBlockHeader.ToTalDifficulty.Cmp(tip.RootBlockHeader.ToTalDifficulty) == 0 &&
+			minorTip.MinorBlockHeaderList[0].Number > tip.MinorBlockHeaderList[0].Number {
+			return fmt.Errorf("best observed minor header is decreasing %d < %d",
+				tip.MinorBlockHeaderList[0].Number, minorTip.MinorBlockHeaderList[0].Number)
+		}
 	}
 	peer.SetMinorHead(branch, tip)
 	clients := pm.getShardConnFunc(branch)
