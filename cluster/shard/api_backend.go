@@ -182,11 +182,11 @@ func (s *ShardBackend) HandleNewTip(rBHeader *types.RootBlockHeader, mBHeader *t
 		log.Info(s.logInfo, "no need t sync curr height", s.MinorBlockChain.CurrentBlock().Number(), "tipHeight", mBHeader.Number)
 		return nil
 	}
-	peer := &peer{cm: s.conn, peerID: peerID}
-	err := s.synchronizer.AddTask(qsync.NewMinorChainTask(peer, mBHeader))
-	if err != nil {
-		log.Error("Failed to add minor chain task,", "hash", mBHeader.Hash(), "height", mBHeader.Number)
-	}
+	//peer := &peer{cm: s.conn, peerID: peerID}
+	//err := s.synchronizer.AddTask(qsync.NewMinorChainTask(peer, mBHeader))
+	//if err != nil {
+	//	log.Error("Failed to add minor chain task,", "hash", mBHeader.Hash(), "height", mBHeader.Number)
+	//}
 
 	log.Debug("Handle new tip received new tip with height", "shard height", mBHeader.Number)
 	return nil
