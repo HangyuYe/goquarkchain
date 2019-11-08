@@ -271,6 +271,7 @@ func (s *ShardBackend) NewMinorBlock(block *types.MinorBlock,needBroadcast bool)
 // Returns true if block is successfully added. False on any error.
 // called by 1. local miner (will not run if syncing) 2. SyncTask
 func (s *ShardBackend) AddMinorBlock(block *types.MinorBlock) error {
+	fmt.Println("AddMinorBlock",block.Branch().Value,block.Hash().String())
 	if commitStatus := s.getBlockCommitStatusByHash(block.Hash()); commitStatus == BLOCK_COMMITTED {
 		return nil
 	}
@@ -320,6 +321,7 @@ func (s *ShardBackend) AddMinorBlock(block *types.MinorBlock) error {
 		ShardStats:        status,
 		CoinbaseAmountMap: block.CoinbaseAmount(),
 	}
+	fmt.Println("SendMinorBlockHeaderToMaster",requests.MinorBlockHeader.Branch,requests.MinorBlockHeader.Hash().String())
 	err = s.conn.SendMinorBlockHeaderToMaster(requests)
 	if err != nil {
 		s.setHead(currHead.Number)
@@ -381,6 +383,9 @@ func (s *ShardBackend) AddBlockListForSync(blockLst []*types.MinorBlock) (map[co
 
 	req := &rpc.AddMinorBlockHeaderListRequest{
 		MinorBlockHeaderList: uncommittedBlockHeaderList,
+	}
+	for _,v:=range req.MinorBlockHeaderList{
+		fmt.Println("AddBlockListForSync hhhhh",v.Branch.Value,v.Hash().String())
 	}
 	if err := s.conn.SendMinorBlockHeaderListToMaster(req); err != nil {
 		return nil, err

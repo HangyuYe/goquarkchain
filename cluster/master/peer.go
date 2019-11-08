@@ -17,7 +17,6 @@ import (
 	"github.com/QuarkChain/goquarkchain/p2p"
 	"github.com/QuarkChain/goquarkchain/serialize"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/log"
 )
 
 var (
@@ -123,7 +122,7 @@ func (p *Peer) broadcast() {
 						"number", nBlock.block.NumberU64(), "hash", nBlock.block.Hash(), "branch", nBlock.branch, "error", err.Error())
 					return
 				}
-				log.Info("Broadcast minor block", "branch", nBlock.branch,"number", nBlock.block.NumberU64(), "hash", nBlock.block.Hash())
+				//log.Info("Broadcast minor block", "branch", nBlock.branch,"number", nBlock.block.NumberU64(), "hash", nBlock.block.Hash())
 			}()
 
 
