@@ -3,10 +3,11 @@ package shard
 import (
 	"errors"
 	"fmt"
-	"github.com/QuarkChain/goquarkchain/account"
-	"github.com/QuarkChain/goquarkchain/consensus/simulate"
 	"math/big"
 	"sync"
+
+	"github.com/QuarkChain/goquarkchain/account"
+	"github.com/QuarkChain/goquarkchain/consensus/simulate"
 
 	"github.com/QuarkChain/goquarkchain/cluster/config"
 	"github.com/QuarkChain/goquarkchain/cluster/miner"
@@ -202,7 +203,7 @@ func (s *ShardBackend) getBlockCommitStatusByHash(blockHash common.Hash) BlockCo
 	// - All neighbor shards/slaves receives x-shard tx list
 	// - The block header is sent to master
 	// then return immediately
-	if s.MinorBlockChain.IsMinorBlockCommittedByHash(blockHash) {
+	if s.MinorBlockChain.HasBlock(blockHash) {
 		return BLOCK_COMMITTED
 	}
 
