@@ -12,7 +12,6 @@ import (
 	"github.com/QuarkChain/goquarkchain/core/state"
 	"github.com/QuarkChain/goquarkchain/core/types"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/log"
 )
 
 type PowSimulate struct {
