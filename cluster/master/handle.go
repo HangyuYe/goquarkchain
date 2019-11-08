@@ -225,30 +225,33 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		return pm.HandleNewMinorTip(qkcMsg.MetaData.Branch, &tip, peer)
 
 	case qkcMsg.Op == p2p.NewTransactionListMsg:
-		var trans p2p.NewTransactionList
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &trans); err != nil {
-			return err
-		}
-		if qkcMsg.MetaData.Branch != 0 {
-			return pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &trans)
-		}
-		branchTxMap := make(map[uint32][]*types.Transaction)
-		for _, tx := range trans.TransactionList {
-			fromShardSize, err := pm.clusterConfig.Quarkchain.GetShardSizeByChainId(tx.EvmTx.FromChainID())
-			if err != nil {
-				return err
+		go func() {
+			var trans p2p.NewTransactionList
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &trans); err != nil {
+				return
 			}
-			if err := tx.EvmTx.SetFromShardSize(fromShardSize); err != nil {
-				return err
+			if qkcMsg.MetaData.Branch != 0 {
+				 pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &trans)
 			}
-			branchTxMap[tx.EvmTx.FromFullShardId()] = append(branchTxMap[tx.EvmTx.FromFullShardId()], tx)
-		}
-		// todo make them run in Parallelized
-		for branch, list := range branchTxMap {
-			if err := pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, branch, &p2p.NewTransactionList{TransactionList: list}); err != nil {
-				return err
+			branchTxMap := make(map[uint32][]*types.Transaction)
+			for _, tx := range trans.TransactionList {
+				fromShardSize, err := pm.clusterConfig.Quarkchain.GetShardSizeByChainId(tx.EvmTx.FromChainID())
+				if err != nil {
+					return
+				}
+				if err := tx.EvmTx.SetFromShardSize(fromShardSize); err != nil {
+					return
+				}
+				branchTxMap[tx.EvmTx.FromFullShardId()] = append(branchTxMap[tx.EvmTx.FromFullShardId()], tx)
 			}
-		}
+			// todo make them run in Parallelized
+			for branch, list := range branchTxMap {
+				if err := pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, branch, &p2p.NewTransactionList{TransactionList: list}); err != nil {
+					return
+				}
+			}
+		}()
+
 
 	case qkcMsg.Op == p2p.NewBlockMinorMsg:
 		var newBlockMinor p2p.NewBlockMinor
@@ -354,17 +357,20 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListRequestMsg:
-		var minorHeaderReq p2p.GetMinorBlockHeaderListRequest
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorHeaderReq); err != nil {
-			return err
-		}
+		go func() {
+			var minorHeaderReq p2p.GetMinorBlockHeaderListRequest
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorHeaderReq); err != nil {
+				return
+			}
 
-		resp, err := pm.HandleGetMinorBlockHeaderListRequest(qkcMsg.RpcID, qkcMsg.MetaData.Branch, &minorHeaderReq)
-		if err != nil {
-			return err
-		}
+			resp, err := pm.HandleGetMinorBlockHeaderListRequest(qkcMsg.RpcID, qkcMsg.MetaData.Branch, &minorHeaderReq)
+			if err != nil {
+				return
+			}
 
-		return peer.SendResponse(p2p.GetMinorBlockHeaderListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+			 peer.SendResponse(p2p.GetMinorBlockHeaderListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		}()
+
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListResponseMsg:
 		var minorHeaderResp p2p.GetMinorBlockHeaderListResponse
@@ -379,16 +385,19 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}
 
 	case qkcMsg.Op == p2p.GetMinorBlockListRequestMsg:
-		var minorBlockReq p2p.GetMinorBlockListRequest
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockReq); err != nil {
-			return err
-		}
+		go func() {
+			var minorBlockReq p2p.GetMinorBlockListRequest
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &minorBlockReq); err != nil {
+				return
+			}
 
-		resp, err := pm.HandleGetMinorBlockListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &minorBlockReq)
-		if err != nil {
-			return err
-		}
-		return peer.SendResponse(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+			resp, err := pm.HandleGetMinorBlockListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &minorBlockReq)
+			if err != nil {
+				return
+			}
+			 peer.SendResponse(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		}()
+
 
 	case qkcMsg.Op == p2p.GetMinorBlockListResponseMsg:
 		var minorBlockResp p2p.GetMinorBlockListResponse
