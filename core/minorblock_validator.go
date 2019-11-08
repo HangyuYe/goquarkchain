@@ -20,6 +20,7 @@ import (
 	"errors"
 	"fmt"
 	"math/big"
+	"runtime/debug"
 	"time"
 
 	"github.com/QuarkChain/goquarkchain/account"
@@ -82,13 +83,14 @@ func (v *MinorBlockValidator) ValidateBlock(mBlock types.IBlock, force bool) err
 	// Check whether the block's known, and if not, that it's linkable
 	if v.bc.HasBlockAndState(block.Hash()) && !force {
 		log.Error(v.logInfo, "already have this block err", ErrKnownBlock, "height", block.NumberU64(), "hash", block.Hash().String())
+		debug.PrintStack()
 		return ErrKnownBlock
 	}
 
 	if !v.bc.HasBlockAndState(block.ParentHash()) {
 		if !v.bc.hasBlock(block.ParentHash()) {
 			log.Error(v.logInfo, "parent block do not have", consensus.ErrUnknownAncestor, "parent height", block.NumberU64()-1, "hash", block.ParentHash().String())
-			//debug.PrintStack()
+			debug.PrintStack()
 			return consensus.ErrUnknownAncestor
 		}
 		log.Warn(v.logInfo, "will insert side chain", ErrPrunedAncestor, "parent height", block.NumberU64()-1, "hash", block.ParentHash().String(), "currHash", block.Hash().String())
