@@ -276,7 +276,7 @@ func (s *ShardBackend) AddMinorBlock(block *types.MinorBlock) error {
 		return err
 	}
 	if len(xshardLst) != 1 {
-		log.Info("Failed to add minor block-1", "len(XshardList)", len(xshardLst), "block.Number", block.Number(), "block.Hash", block.Hash().String())
+		log.Warn("Failed to add minor block-1", "len(XshardList)", len(xshardLst), "block.Number", block.Number(), "block.Hash", block.Hash().String())
 		return nil
 	}
 	// only remove from pool if the block successfully added to state,

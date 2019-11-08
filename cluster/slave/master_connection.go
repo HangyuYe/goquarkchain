@@ -2,6 +2,7 @@ package slave
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	"github.com/QuarkChain/goquarkchain/core/types"
@@ -105,6 +106,9 @@ func (s *ConnManager) GetMinorBlocks(mHeaderList []common.Hash, peerId string, b
 		return nil, err
 	}
 
+	if len(gReq.MinorBlockHashList) != len(mHeaderList) {
+		panic(fmt.Errorf("sb--2 %v %v", len(gReq.MinorBlockHashList), len(mHeaderList)))
+	}
 	return gRep.MinorBlockList, nil
 }
 

@@ -94,7 +94,7 @@ func (t *task) Run(bc blockchain) error {
 			} else {
 				blocks, err = t.getBlocks(hashlist)
 				if len(blocks) != len(hashlist) {
-					return fmt.Errorf("unmatched block length-2, expect: %d, actual: %d", len(hashlist), len(blocks))
+					return fmt.Errorf("unmatched block length-2, expect: %d, actual: %d hash:%v", len(hashlist), len(blocks), hashlist[0].String())
 				}
 				hashlist = nil
 			}

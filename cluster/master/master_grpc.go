@@ -7,6 +7,7 @@ import (
 
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	"github.com/QuarkChain/goquarkchain/serialize"
+	"github.com/ethereum/go-ethereum/log"
 )
 
 type MasterServerSideOp struct {
@@ -109,11 +110,15 @@ func (m *MasterServerSideOp) GetMinorBlockList(ctx context.Context, req *rpc.Req
 	}
 	getMinorBlockListRes.MinorBlockList, err = m.p2pApi.GetMinorBlockList(getMinorBlockListReq.MinorBlockHashList, getMinorBlockListReq.Branch, getMinorBlockListReq.PeerId)
 	if err != nil {
+		log.Error("EEEEEEEEEEEEEEEEE", "err", err)
 		return nil, err
 	}
 	bytes, err := serialize.SerializeToBytes(getMinorBlockListRes)
 	if err != nil {
 		return nil, err
+	}
+	if len(getMinorBlockListRes.MinorBlockList) != len(getMinorBlockListReq.MinorBlockHashList) {
+		panic(fmt.Errorf("sb--44 %v %v", len(getMinorBlockListReq.MinorBlockHashList), len(getMinorBlockListRes.MinorBlockList)))
 	}
 
 	return &rpc.Response{
