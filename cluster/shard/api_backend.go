@@ -259,6 +259,9 @@ func (s *ShardBackend) NewMinorBlock(block *types.MinorBlock) (err error) {
 	if err = s.conn.BroadcastMinorBlock(block, s.branch.Value); err != nil {
 		return err
 	}
+	if s.MinorBlockChain.HasBlock(block.Hash()){
+		return nil
+	}
 	return s.AddMinorBlock(block)
 }
 
