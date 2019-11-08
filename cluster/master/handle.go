@@ -220,6 +220,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}
 		// handle root tip when branch == 0
 		if qkcMsg.MetaData.Branch == 0 {
+			log.Info("NewTip","branch",qkcMsg.MetaData.Branch,"number",tip.MinorBlockHeaderList[0].Number,"hash",tip.MinorBlockHeaderList[0].Hash().String())
 			return pm.HandleNewRootTip(&tip, peer)
 		}
 		return pm.HandleNewMinorTip(qkcMsg.MetaData.Branch, &tip, peer)
@@ -274,6 +275,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		if len(clients) == 0 {
 			return fmt.Errorf("invalid branch %d for rpc request %d", qkcMsg.RpcID, branch)
 		}
+		log.Info("new minor block","branch",newBlockMinor.Block.Header().Branch.Value,"number",newBlockMinor.Block.Header().Number,"hash",newBlockMinor.Block.Hash().String())
 		//todo make them run in Parallelized
 		for _, client := range clients {
 			result, err := client.HandleNewMinorBlock(&newBlockMinor)
