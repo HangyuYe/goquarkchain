@@ -220,7 +220,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}
 		// handle root tip when branch == 0
 		if qkcMsg.MetaData.Branch == 0 {
-			log.Info("NewTip","branch",qkcMsg.MetaData.Branch,"number",tip.MinorBlockHeaderList[0].Number,"hash",tip.MinorBlockHeaderList[0].Hash().String())
+			//log.Info("NewTip","branch",qkcMsg.MetaData.Branch,"number",tip.MinorBlockHeaderList[0].Number,"hash",tip.MinorBlockHeaderList[0].Hash().String())
 			return pm.HandleNewRootTip(&tip, peer)
 		}
 		log.Info("NewTip--","branch",qkcMsg.MetaData.Branch,"number",tip.MinorBlockHeaderList[0].Number,"hash",tip.MinorBlockHeaderList[0].Hash().String())
