@@ -586,17 +586,7 @@ func (m *MinorBlockChain) Genesis() *types.MinorBlock {
 
 // HasBlock checks if a block is fully present in the database or not.
 func (m *MinorBlockChain) HasBlock(hash common.Hash) bool {
-	if m.blockCache.Contains(hash) {
-		return true
-	}
-	return rawdb.HasBlock(m.db, hash)
-}
-
-func (m *MinorBlockChain) hasBlock(hash common.Hash) bool {
-	if m.blockCache.Contains(hash) {
-		return true
-	}
-	return rawdb.HasBlock(m.db, hash)
+	return m.IsMinorBlockCommittedByHash(hash)
 }
 
 // HasState checks if state trie is fully present in the database or not.
@@ -609,7 +599,7 @@ func (m *MinorBlockChain) HasState(hash common.Hash) bool {
 // in the database or not, caching it if present.
 func (m *MinorBlockChain) HasBlockAndState(hash common.Hash) bool {
 	// Check first that the block itself is known
-	flag := m.hasBlock(hash)
+	flag := m.HasBlock(hash)
 	if !flag {
 		return false
 	}

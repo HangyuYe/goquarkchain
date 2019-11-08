@@ -28,7 +28,6 @@ func (m *MasterServerSideOp) AddMinorBlockHeader(ctx context.Context, req *rpc.R
 	if err := serialize.DeserializeFromBytes(req.Data, data); err != nil {
 		return nil, err
 	}
-	fmt.Println("AddValidatedMinorBlockHeader-singer", data.MinorBlockHeader.Branch.Value, data.MinorBlockHeader.Number, data.MinorBlockHeader.Hash().String())
 	m.master.rootBlockChain.AddValidatedMinorBlockHeader(data.MinorBlockHeader.Hash(), data.CoinbaseAmountMap)
 	m.master.UpdateShardStatus(data.ShardStats)
 	m.master.UpdateTxCountHistory(data.TxCount, data.XShardTxCount, data.MinorBlockHeader.Time)
@@ -52,7 +51,6 @@ func (m *MasterServerSideOp) AddMinorBlockHeaderList(ctx context.Context, req *r
 		return nil, err
 	}
 	for _, header := range gReq.MinorBlockHeaderList {
-		fmt.Println("AddValidatedMinorBlockHeader-list", header.Branch.Value, header.Number, header.Hash().String())
 		m.master.rootBlockChain.AddValidatedMinorBlockHeader(header.Hash(), header.CoinbaseAmount)
 	}
 	return &rpc.Response{RpcId: req.RpcId}, nil
@@ -110,7 +108,6 @@ func (m *MasterServerSideOp) GetMinorBlockList(ctx context.Context, req *rpc.Req
 	}
 	getMinorBlockListRes.MinorBlockList, err = m.p2pApi.GetMinorBlockList(getMinorBlockListReq.MinorBlockHashList, getMinorBlockListReq.Branch, getMinorBlockListReq.PeerId)
 	if err != nil {
-		log.Error("EEEEEEEEEEEEEEEEE", "err", err)
 		return nil, err
 	}
 	bytes, err := serialize.SerializeToBytes(getMinorBlockListRes)

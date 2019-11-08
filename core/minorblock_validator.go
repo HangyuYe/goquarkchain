@@ -88,7 +88,7 @@ func (v *MinorBlockValidator) ValidateBlock(mBlock types.IBlock, force bool) err
 	}
 
 	if !v.bc.HasBlockAndState(block.ParentHash()) {
-		if !v.bc.hasBlock(block.ParentHash()) {
+		if !v.bc.HasBlock(block.ParentHash()) {
 			log.Error(v.logInfo, "parent block do not have", consensus.ErrUnknownAncestor, "parent height", block.NumberU64()-1, "hash", block.ParentHash().String())
 			debug.PrintStack()
 			return consensus.ErrUnknownAncestor

@@ -203,7 +203,7 @@ func (s *ShardBackend) getBlockCommitStatusByHash(blockHash common.Hash) BlockCo
 	// - All neighbor shards/slaves receives x-shard tx list
 	// - The block header is sent to master
 	// then return immediately
-	if s.MinorBlockChain.HasBlock(blockHash) {
+	if s.MinorBlockChain.IsMinorBlockCommittedByHash(blockHash) {
 		return BLOCK_COMMITTED
 	}
 

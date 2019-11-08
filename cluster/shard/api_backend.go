@@ -227,7 +227,7 @@ func (s *ShardBackend) NewMinorBlock(block *types.MinorBlock) (err error) {
 		return
 	}
 
-	if !s.MinorBlockChain.HasBlock(block.ParentHash()) {
+	if !s.MinorBlockChain.HasBlock(block.ParentHash()) && s.mBPool.getBlockInPool(block.ParentHash()) == nil {
 		log.Debug("prarent block hash not be included", "parent hash: ", block.ParentHash().Hex())
 		return
 	}
@@ -314,7 +314,6 @@ func (s *ShardBackend) AddMinorBlock(block *types.MinorBlock) error {
 		ShardStats:        status,
 		CoinbaseAmountMap: block.CoinbaseAmount(),
 	}
-	fmt.Println("SendMinorBlockHeaderToMaster-", requests.MinorBlockHeader.Branch.Value, requests.MinorBlockHeader.Number, requests.MinorBlockHeader.Hash().String())
 	err = s.conn.SendMinorBlockHeaderToMaster(requests)
 	if err != nil {
 		s.setHead(currHead.Number)
@@ -376,9 +375,6 @@ func (s *ShardBackend) AddBlockListForSync(blockLst []*types.MinorBlock) (map[co
 
 	req := &rpc.AddMinorBlockHeaderListRequest{
 		MinorBlockHeaderList: uncommittedBlockHeaderList,
-	}
-	for _, v := range req.MinorBlockHeaderList {
-		fmt.Println("SendMinorBlockHeaderListToMaster", v.Branch.Value, v.Number, v.Hash().String())
 	}
 	if err := s.conn.SendMinorBlockHeaderListToMaster(req); err != nil {
 		return nil, err
