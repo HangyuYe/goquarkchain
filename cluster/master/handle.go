@@ -254,37 +254,37 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 
 
 	case qkcMsg.Op == p2p.NewBlockMinorMsg:
-		go func() {
-			var newBlockMinor p2p.NewBlockMinor
-			branch := qkcMsg.MetaData.Branch
-			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &newBlockMinor); err != nil {
-				return
+		var newBlockMinor p2p.NewBlockMinor
+		branch := qkcMsg.MetaData.Branch
+		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &newBlockMinor); err != nil {
+			return err
+		}
+		if branch != newBlockMinor.Block.Branch().Value {
+			return fmt.Errorf("invalid NewBlockMinor Request: mismatch branch value from peer %v. in request meta: %d, in minor header: %d",
+				peer.id, branch, newBlockMinor.Block.Branch().Value)
+		}
+		tip := peer.MinorHead(branch)
+		if tip == nil {
+			tip = new(p2p.Tip)
+			tip.MinorBlockHeaderList = make([]*types.MinorBlockHeader, 1, 1)
+		}
+		tip.MinorBlockHeaderList[0] = newBlockMinor.Block.Header()
+		peer.SetMinorHead(branch, tip)
+		clients := pm.getShardConnFunc(branch)
+		if len(clients) == 0 {
+			return fmt.Errorf("invalid branch %d for rpc request %d", qkcMsg.RpcID, branch)
+		}
+		//todo make them run in Parallelized
+		for _, client := range clients {
+			result, err := client.HandleNewMinorBlock(&newBlockMinor)
+			if err != nil {
+				return fmt.Errorf("branch %d handle NewBlockMinorMsg message failed with error: %v", branch, err.Error())
 			}
-			if branch != newBlockMinor.Block.Branch().Value {
-				return
+			if !result {
+				return fmt.Errorf("AddMinorBlock (rpcId %d) for branch %d return false",
+					qkcMsg.RpcID, branch)
 			}
-			tip := peer.MinorHead(branch)
-			if tip == nil {
-				tip = new(p2p.Tip)
-				tip.MinorBlockHeaderList = make([]*types.MinorBlockHeader, 1, 1)
-			}
-			tip.MinorBlockHeaderList[0] = newBlockMinor.Block.Header()
-			peer.SetMinorHead(branch, tip)
-			clients := pm.getShardConnFunc(branch)
-			if len(clients) == 0 {
-				return
-			}
-			//todo make them run in Parallelized
-			for _, client := range clients {
-				result, err := client.HandleNewMinorBlock(&newBlockMinor)
-				if err != nil {
-					return
-				}
-				if !result {
-					return 
-				}
-			}
-		}()
+		}
 
 
 	case qkcMsg.Op == p2p.GetRootBlockHeaderListRequestMsg:
