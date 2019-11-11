@@ -483,7 +483,7 @@ func (s *SlaveBackend) HandleNewTip(req *rpc.HandleNewTipRequest) error {
 
 func (s *SlaveBackend) NewMinorBlock(block *types.MinorBlock) error {
 	if shard, ok := s.shards[block.Branch().Value]; ok {
-		return shard.NewMinorBlock(block,false)
+		return shard.NewMinorBlock(block)
 	}
 	return ErrMsg("NewMinorBlock")
 }

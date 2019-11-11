@@ -648,7 +648,6 @@ func (s *SlaveServerSideOp) HandleNewMinorBlock(ctx context.Context, req *rpc.Re
 	if err = serialize.DeserializeFromBytes(req.Data, &gReq); err != nil {
 		return nil, err
 	}
-	return response, nil
 	if err = s.slave.NewMinorBlock(&gReq); err != nil {
 		return nil, err
 	}

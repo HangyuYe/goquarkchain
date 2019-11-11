@@ -210,25 +210,22 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		return errors.New("Unexpected Hello msg")
 
 	case qkcMsg.Op == p2p.NewTipMsg:
-		go func() {
-			var tip p2p.Tip
-			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &tip); err != nil {
-				//return err
-			}
-			if tip.RootBlockHeader == nil {
-				//return fmt.Errorf("invalid NewTip Request: RootBlockHeader is nil. %d for rpc request %d",
-				//	qkcMsg.RpcID, qkcMsg.MetaData.Branch)
-			}
-			// handle root tip when branch == 0
-			if qkcMsg.MetaData.Branch == 0 {
-				pm.HandleNewRootTip(&tip, peer)
-			}
-			pm.HandleNewMinorTip(qkcMsg.MetaData.Branch, &tip, peer)
-		}()
+		var tip p2p.Tip
+		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &tip); err != nil {
+			return err
+		}
+		if tip.RootBlockHeader == nil {
+			return fmt.Errorf("invalid NewTip Request: RootBlockHeader is nil. %d for rpc request %d",
+				qkcMsg.RpcID, qkcMsg.MetaData.Branch)
+		}
+		// handle root tip when branch == 0
+		if qkcMsg.MetaData.Branch == 0 {
+			return pm.HandleNewRootTip(&tip, peer)
+		}
+		return pm.HandleNewMinorTip(qkcMsg.MetaData.Branch, &tip, peer)
 
 
 	case qkcMsg.Op == p2p.NewTransactionListMsg:
-		panic("sbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
 		go func() {
 			var trans p2p.NewTransactionList
 			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &trans); err != nil {
@@ -258,7 +255,6 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 
 
 	case qkcMsg.Op == p2p.NewBlockMinorMsg:
-		return nil
 		var newBlockMinor p2p.NewBlockMinor
 		branch := qkcMsg.MetaData.Branch
 		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &newBlockMinor); err != nil {

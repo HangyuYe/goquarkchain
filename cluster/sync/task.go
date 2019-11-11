@@ -88,7 +88,7 @@ func (t *task) Run(bc blockchain) error {
 			if len(hashlist) > t.batchSize {
 				blocks, err = t.getBlocks(hashlist[:t.batchSize])
 				if err != nil {
-					log.Error("EEEEE-sb-1", err)
+					log.Error("getBlocks-1", "err",err)
 					return err
 				}
 				if len(blocks) != t.batchSize {
@@ -98,7 +98,7 @@ func (t *task) Run(bc blockchain) error {
 			} else {
 				blocks, err = t.getBlocks(hashlist)
 				if err != nil {
-					log.Error("EEEEE-sb-2", "err", err)
+					log.Error("getBlocks-2", "err", err)
 					return err
 				}
 				if len(blocks) != len(hashlist) {

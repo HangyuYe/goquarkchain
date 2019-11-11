@@ -213,7 +213,7 @@ func (s *ShardBackend) GetMinorBlock(mHash common.Hash, height *uint64) (mBlock 
 	return nil, errors.New("minor block not found")
 }
 
-func (s *ShardBackend) NewMinorBlock(block *types.MinorBlock,needBroadcast bool) (err error) {
+func (s *ShardBackend) NewMinorBlock(block *types.MinorBlock) (err error) {
 	log.Debug(s.logInfo, "NewMinorBlock height", block.NumberU64(), "hash", block.Hash().String())
 	defer log.Debug(s.logInfo, "NewMinorBlock", "end")
 	// TODO synchronizer.running
@@ -255,14 +255,8 @@ func (s *ShardBackend) NewMinorBlock(block *types.MinorBlock,needBroadcast bool)
 	}
 
 	s.mBPool.setBlockInPool(block.Header())
-	if needBroadcast{
-		if err = s.conn.BroadcastMinorBlock(block, s.branch.Value); err != nil {
-			return err
-		}
-	}
-
-	if s.MinorBlockChain.HasBlock(block.Hash()){
-		return nil
+	if err = s.conn.BroadcastMinorBlock(block, s.branch.Value); err != nil {
+		return err
 	}
 	return s.AddMinorBlock(block)
 }
@@ -276,13 +270,9 @@ func (s *ShardBackend) AddMinorBlock(block *types.MinorBlock) error {
 	//TODO support BLOCK_COMMITTING
 	currHead := s.MinorBlockChain.CurrentBlock().Header()
 	_, xshardLst, err := s.MinorBlockChain.InsertChainForDeposits([]types.IBlock{block}, false)
-	if err != nil {
+	if err != nil || len(xshardLst) != 1 {
 		log.Error("Failed to add minor block", "err", err, "len", len(xshardLst))
 		return err
-	}
-	if len(xshardLst) != 1 {
-		log.Warn("Failed to add minor block-1", "len(XshardList)", len(xshardLst), "block.Number", block.Number(), "block.Hash", block.Hash().String())
-		return nil
 	}
 	// only remove from pool if the block successfully added to state,
 	// this may cache failed blocks but prevents them being broadcasted more than needed
@@ -359,13 +349,9 @@ func (s *ShardBackend) AddBlockListForSync(blockLst []*types.MinorBlock) (map[co
 		//TODO:support BLOCK_COMMITTING
 		coinbaseAmountList[block.Hash()] = block.CoinbaseAmount()
 		_, xshardLst, err := s.MinorBlockChain.InsertChainForDeposits([]types.IBlock{block}, false)
-		if err != nil {
-			log.Error("Failed to add minor block", "err", err, "blockNumber", block.Header().Number, "blockHash", block.Header().Hash().String())
+		if err != nil || len(xshardLst) != 1 {
+			log.Error("Failed to add minor block", "err", err)
 			return nil, err
-		}
-		if len(xshardLst) != 1 {
-			log.Info("Failed to add minor block", "len(xshardLst)", len(xshardLst), "blockNumber", block.Header().Number, "blockHash", block.Header().Hash().String())
-			//return nil, nil
 		}
 		s.mBPool.delBlockInPool(block.Hash())
 		prevRootHeight := s.MinorBlockChain.GetRootBlockByHash(block.PrevRootBlockHash())
@@ -403,7 +389,7 @@ func (s *ShardBackend) SubmitWork(headerHash common.Hash, nonce uint64, mixHash 
 }
 
 func (s *ShardBackend) InsertMinedBlock(block types.IBlock) error {
-	return s.NewMinorBlock(block.(*types.MinorBlock),true)
+	return s.NewMinorBlock(block.(*types.MinorBlock))
 }
 
 func (s *ShardBackend) GetTip() uint64 {
@@ -459,19 +445,19 @@ func (s *ShardBackend) AddTxList(txs []*types.Transaction) error {
 		}
 	}
 
-	//go func() {
-	//	span := len(txs) / params.NEW_TRANSACTION_LIST_LIMIT
-	//	for index := 0; index < span; index++ {
-	//		if err := s.conn.BroadcastTransactions(txs[index*params.NEW_TRANSACTION_LIST_LIMIT:(index+1)*params.NEW_TRANSACTION_LIST_LIMIT], s.branch.Value); err != nil {
-	//			log.Error(s.logInfo, "broadcastTransaction err", err)
-	//		}
-	//	}
-	//	if len(txs)%params.NEW_TRANSACTION_LIST_LIMIT != 0 {
-	//		if err := s.conn.BroadcastTransactions(txs[span*params.NEW_TRANSACTION_LIST_LIMIT:], s.branch.Value); err != nil {
-	//			log.Error(s.logInfo, "broadcastTransaction err", err)
-	//		}
-	//	}
-	//}()
+	go func() {
+		span := len(txs) / params.NEW_TRANSACTION_LIST_LIMIT
+		for index := 0; index < span; index++ {
+			if err := s.conn.BroadcastTransactions(txs[index*params.NEW_TRANSACTION_LIST_LIMIT:(index+1)*params.NEW_TRANSACTION_LIST_LIMIT], s.branch.Value); err != nil {
+				log.Error(s.logInfo, "broadcastTransaction err", err)
+			}
+		}
+		if len(txs)%params.NEW_TRANSACTION_LIST_LIMIT != 0 {
+			if err := s.conn.BroadcastTransactions(txs[span*params.NEW_TRANSACTION_LIST_LIMIT:], s.branch.Value); err != nil {
+				log.Error(s.logInfo, "broadcastTransaction err", err)
+			}
+		}
+	}()
 	return nil
 }
 
