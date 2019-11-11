@@ -225,6 +225,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		return pm.HandleNewMinorTip(qkcMsg.MetaData.Branch, &tip, peer)
 
 	case qkcMsg.Op == p2p.NewTransactionListMsg:
+		panic("sbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
 		go func() {
 			var trans p2p.NewTransactionList
 			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &trans); err != nil {
