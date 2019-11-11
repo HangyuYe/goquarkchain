@@ -258,6 +258,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 
 
 	case qkcMsg.Op == p2p.NewBlockMinorMsg:
+		return nil
 		var newBlockMinor p2p.NewBlockMinor
 		branch := qkcMsg.MetaData.Branch
 		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &newBlockMinor); err != nil {
