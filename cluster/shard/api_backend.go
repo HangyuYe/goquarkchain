@@ -13,7 +13,6 @@ import (
 	"github.com/QuarkChain/goquarkchain/consensus"
 	"github.com/QuarkChain/goquarkchain/core"
 	"github.com/QuarkChain/goquarkchain/core/types"
-	"github.com/QuarkChain/goquarkchain/params"
 	qrpc "github.com/QuarkChain/goquarkchain/rpc"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/event"
@@ -460,19 +459,19 @@ func (s *ShardBackend) AddTxList(txs []*types.Transaction) error {
 		}
 	}
 
-	go func() {
-		span := len(txs) / params.NEW_TRANSACTION_LIST_LIMIT
-		for index := 0; index < span; index++ {
-			if err := s.conn.BroadcastTransactions(txs[index*params.NEW_TRANSACTION_LIST_LIMIT:(index+1)*params.NEW_TRANSACTION_LIST_LIMIT], s.branch.Value); err != nil {
-				log.Error(s.logInfo, "broadcastTransaction err", err)
-			}
-		}
-		if len(txs)%params.NEW_TRANSACTION_LIST_LIMIT != 0 {
-			if err := s.conn.BroadcastTransactions(txs[span*params.NEW_TRANSACTION_LIST_LIMIT:], s.branch.Value); err != nil {
-				log.Error(s.logInfo, "broadcastTransaction err", err)
-			}
-		}
-	}()
+	//go func() {
+	//	span := len(txs) / params.NEW_TRANSACTION_LIST_LIMIT
+	//	for index := 0; index < span; index++ {
+	//		if err := s.conn.BroadcastTransactions(txs[index*params.NEW_TRANSACTION_LIST_LIMIT:(index+1)*params.NEW_TRANSACTION_LIST_LIMIT], s.branch.Value); err != nil {
+	//			log.Error(s.logInfo, "broadcastTransaction err", err)
+	//		}
+	//	}
+	//	if len(txs)%params.NEW_TRANSACTION_LIST_LIMIT != 0 {
+	//		if err := s.conn.BroadcastTransactions(txs[span*params.NEW_TRANSACTION_LIST_LIMIT:], s.branch.Value); err != nil {
+	//			log.Error(s.logInfo, "broadcastTransaction err", err)
+	//		}
+	//	}
+	//}()
 	return nil
 }
 
