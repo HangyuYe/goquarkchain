@@ -116,26 +116,20 @@ func (p *Peer) broadcast() {
 			p.Log().Trace("Broadcast transactions", "count", len(nTxs.txs), "branch", nTxs.branch)
 
 		case nBlock := <-p.queuedMinorBlock:
-			go func() {
-				if err := p.SendNewMinorBlock(nBlock.branch, nBlock.block); err != nil {
-					p.Log().Error("Broadcast minor block failed",
-						"number", nBlock.block.NumberU64(), "hash", nBlock.block.Hash(), "branch", nBlock.branch, "error", err.Error())
-					return
-				}
-				//log.Info("Broadcast minor block", "branch", nBlock.branch,"number", nBlock.block.NumberU64(), "hash", nBlock.block.Hash())
-			}()
-
+			if err := p.SendNewMinorBlock(nBlock.branch, nBlock.block); err != nil {
+				p.Log().Error("Broadcast minor block failed",
+					"number", nBlock.block.NumberU64(), "hash", nBlock.block.Hash(), "branch", nBlock.branch, "error", err.Error())
+				return
+			}
+			p.Log().Trace("Broadcast minor block", "number", nBlock.block.NumberU64(), "hash", nBlock.block.Hash(), "branch", nBlock.branch)
 
 		case nTip := <-p.queuedTip:
-			go func() {
-				if err := p.SendNewTip(nTip.branch, nTip.tip); err != nil {
-					return
-				}
-				if nTip.branch != 0 {
-					p.Log().Trace("Broadcast new tip", "number", nTip.tip.RootBlockHeader.NumberU64(), "branch", nTip.branch)
-				}
-			}()
-
+			if err := p.SendNewTip(nTip.branch, nTip.tip); err != nil {
+				return
+			}
+			if nTip.branch != 0 {
+				p.Log().Trace("Broadcast new tip", "number", nTip.tip.RootBlockHeader.NumberU64(), "branch", nTip.branch)
+			}
 
 		case <-p.term:
 			return
