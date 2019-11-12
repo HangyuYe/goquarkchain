@@ -2,6 +2,7 @@ module github.com/QuarkChain/goquarkchain
 
 require (
 	bou.ke/monkey v1.0.1
+	github.com/516108736/DailyTool v0.0.0-20191112024532-3a0c471a0dcf
 	github.com/StackExchange/wmi v0.0.0-20181212234831-e0a55b97c705 // indirect
 	github.com/allegro/bigcache v1.2.0 // indirect
 	github.com/aristanetworks/goarista v0.0.0-20190219163901-728bce664cf5 // indirect
