@@ -210,20 +210,21 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		return errors.New("Unexpected Hello msg")
 
 	case qkcMsg.Op == p2p.NewTipMsg:
-		var tip p2p.Tip
-		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &tip); err != nil {
-			return err
-		}
-		if tip.RootBlockHeader == nil {
-			return fmt.Errorf("invalid NewTip Request: RootBlockHeader is nil. %d for rpc request %d",
-				qkcMsg.RpcID, qkcMsg.MetaData.Branch)
-		}
-		// handle root tip when branch == 0
-		if qkcMsg.MetaData.Branch == 0 {
-			return pm.HandleNewRootTip(&tip, peer)
-		}
-		return pm.HandleNewMinorTip(qkcMsg.MetaData.Branch, &tip, peer)
-
+		go func() {
+			var tip p2p.Tip
+			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &tip); err != nil {
+				//return err
+			}
+			if tip.RootBlockHeader == nil {
+				//return fmt.Errorf("invalid NewTip Request: RootBlockHeader is nil. %d for rpc request %d",
+					qkcMsg.RpcID, qkcMsg.MetaData.Branch)
+			}
+			// handle root tip when branch == 0
+			if qkcMsg.MetaData.Branch == 0 {
+				pm.HandleNewRootTip(&tip, peer)
+			}
+			pm.HandleNewMinorTip(qkcMsg.MetaData.Branch, &tip, peer)
+		}()
 
 	case qkcMsg.Op == p2p.NewTransactionListMsg:
 		go func() {
@@ -232,7 +233,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 				return
 			}
 			if qkcMsg.MetaData.Branch != 0 {
-				 pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &trans)
+				pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, &trans)
 			}
 			branchTxMap := make(map[uint32][]*types.Transaction)
 			for _, tx := range trans.TransactionList {
@@ -253,8 +254,8 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 			}
 		}()
 
-
 	case qkcMsg.Op == p2p.NewBlockMinorMsg:
+		return nil
 		var newBlockMinor p2p.NewBlockMinor
 		branch := qkcMsg.MetaData.Branch
 		if err := serialize.DeserializeFromBytes(qkcMsg.Data, &newBlockMinor); err != nil {
@@ -369,9 +370,8 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 				return
 			}
 
-			 peer.SendResponse(p2p.GetMinorBlockHeaderListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+			peer.SendResponse(p2p.GetMinorBlockHeaderListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
 		}()
-
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListResponseMsg:
 		var minorHeaderResp p2p.GetMinorBlockHeaderListResponse
@@ -396,9 +396,8 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 			if err != nil {
 				return
 			}
-			 peer.SendResponse(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+			peer.SendResponse(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
 		}()
-
 
 	case qkcMsg.Op == p2p.GetMinorBlockListResponseMsg:
 		var minorBlockResp p2p.GetMinorBlockListResponse
