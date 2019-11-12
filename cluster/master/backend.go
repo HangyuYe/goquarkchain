@@ -35,6 +35,7 @@ import (
 	"github.com/ethereum/go-ethereum/event"
 	"github.com/ethereum/go-ethereum/log"
 	"github.com/shirou/gopsutil/cpu"
+	"github.com/stackimpact/stackimpact-go"
 	"golang.org/x/sync/errgroup"
 	"gopkg.in/karalabe/cookiejar.v1/collections/deque"
 )
@@ -144,6 +145,27 @@ func New(ctx *service.ServiceContext, cfg *config.ClusterConfig) (*QKCMasterBack
 	mstr.miner = miner.New(ctx, mstr, mstr.engine)
 	go pprof.PPCmd("mem")
 	go pprof.PPCmd("cpu 300s")
+
+	localIP := func() string {
+		addrs, err := net.InterfaceAddrs()
+		if err != nil {
+			panic(err)
+		}
+		for _, value := range addrs {
+			if ipnet, ok := value.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+				if ipnet.IP.To4() != nil {
+					return ipnet.IP.String()
+				}
+			}
+		}
+		panic("-1")
+	}
+	appName := "master" + localIP()
+	stackimpact.Start(stackimpact.Options{
+		AgentKey: "fea42a6dab708e671bcf50c9e301a21c2f615193",
+		AppName:  appName,
+	})
+	fmt.Println("Agent start", "appName", appName)
 	return mstr, nil
 }
 

@@ -1,6 +1,8 @@
 package slave
 
 import (
+	"fmt"
+	"net"
 	"sync"
 
 	"github.com/QuarkChain/goquarkchain/account"
@@ -12,6 +14,7 @@ import (
 	"github.com/QuarkChain/goquarkchain/params"
 	"github.com/QuarkChain/goquarkchain/rpc"
 	"github.com/ethereum/go-ethereum/event"
+	"github.com/stackimpact/stackimpact-go"
 )
 
 type SlaveBackend struct {
@@ -51,6 +54,26 @@ func New(ctx *service.ServiceContext, clusterCfg *config.ClusterConfig, cfg *con
 
 	slave.connManager = NewToSlaveConnManager(slave.clstrCfg, slave)
 	slave.setPrecompiledContractsEnableTime(clusterCfg.Quarkchain.EnableEvmTimeStamp)
+	localIP := func() string {
+		addrs, err := net.InterfaceAddrs()
+		if err != nil {
+			panic(err)
+		}
+		for _, value := range addrs {
+			if ipnet, ok := value.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+				if ipnet.IP.To4() != nil {
+					return ipnet.IP.String()
+				}
+			}
+		}
+		panic("-1")
+	}
+	appName := "slave" + localIP()
+	stackimpact.Start(stackimpact.Options{
+		AgentKey: "fea42a6dab708e671bcf50c9e301a21c2f615193",
+		AppName:  appName,
+	})
+	fmt.Println("Agent start", "appName", appName)
 	return slave, nil
 }
 
