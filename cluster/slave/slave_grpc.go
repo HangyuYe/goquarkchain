@@ -606,9 +606,10 @@ func (s *SlaveServerSideOp) HandleNewTip(ctx context.Context, req *rpc.Request) 
 
 func (s *SlaveServerSideOp) AddTransactions(ctx context.Context, req *rpc.Request) (*rpc.Response, error) {
 	var (
-		gReq rpc.P2PRedirectRequest
-		txs  p2p.NewTransactionList
-		err  error
+		gReq     rpc.P2PRedirectRequest
+		txs      p2p.NewTransactionList
+		response = &rpc.Response{RpcId: req.RpcId}
+		err      error
 	)
 
 	if err = serialize.DeserializeFromBytes(req.Data, &gReq); err != nil {
@@ -634,7 +635,7 @@ func (s *SlaveServerSideOp) AddTransactions(ctx context.Context, req *rpc.Reques
 
 	if gReq.Branch != 0 {
 		err := addTxList(gReq.Branch, txs.TransactionList)
-		return nil, err
+		return response, err
 	}
 
 	var (
@@ -670,7 +671,7 @@ func (s *SlaveServerSideOp) AddTransactions(ctx context.Context, req *rpc.Reques
 		})
 	}
 
-	return nil, g.Wait()
+	return response, g.Wait()
 }
 
 func (s *SlaveServerSideOp) HandleNewMinorBlock(ctx context.Context, req *rpc.Request) (*rpc.Response, error) {
