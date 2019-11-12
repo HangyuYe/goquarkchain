@@ -341,7 +341,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 			return err
 		}
 
-			peer.SendResponse(p2p.GetMinorBlockHeaderListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		peer.SendResponseWithData(p2p.GetMinorBlockHeaderListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListResponseMsg:
 		if c := peer.getChan(qkcMsg.RpcID); c != nil {
@@ -360,7 +360,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		if err != nil {
 			return err
 		}
-			peer.SendResponse(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		peer.SendResponseWithData(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
 
 	case qkcMsg.Op == p2p.GetMinorBlockListResponseMsg:
 		if c := peer.getChan(qkcMsg.RpcID); c != nil {
