@@ -6,6 +6,8 @@ import (
 	"math/big"
 	"time"
 
+	"github.com/QuarkChain/goquarkchain/params"
+
 	"github.com/QuarkChain/goquarkchain/account"
 	"github.com/QuarkChain/goquarkchain/cluster/rpc"
 	qsync "github.com/QuarkChain/goquarkchain/cluster/sync"
@@ -187,7 +189,7 @@ func (s *ShardBackend) HandleNewTip(rBHeader *types.RootBlockHeader, mBHeader *t
 		log.Error("Failed to add minor chain task,", "hash", mBHeader.Hash(), "height", mBHeader.Number)
 	}
 
-	log.Info("Handle new tip received new tip with height", "branch",mBHeader.Branch,"shard height", mBHeader.Number,"hash",mBHeader.Hash().String())
+	log.Info("Handle new tip received new tip with height", "branch", mBHeader.Branch, "shard height", mBHeader.Number, "hash", mBHeader.Hash().String())
 	return nil
 }
 
