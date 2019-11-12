@@ -3,6 +3,14 @@ package master
 import (
 	"errors"
 	"fmt"
+	"math/big"
+	"net"
+	"os"
+	"sort"
+	"sync"
+	"syscall"
+	"time"
+
 	"github.com/QuarkChain/goquarkchain/account"
 	"github.com/QuarkChain/goquarkchain/cluster/config"
 	"github.com/QuarkChain/goquarkchain/cluster/miner"
@@ -19,6 +27,7 @@ import (
 	"github.com/QuarkChain/goquarkchain/core/types"
 	"github.com/QuarkChain/goquarkchain/internal/qkcapi"
 	"github.com/QuarkChain/goquarkchain/p2p"
+	"github.com/QuarkChain/goquarkchain/pprof"
 	qrpc "github.com/QuarkChain/goquarkchain/rpc"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
@@ -28,13 +37,6 @@ import (
 	"github.com/shirou/gopsutil/cpu"
 	"golang.org/x/sync/errgroup"
 	"gopkg.in/karalabe/cookiejar.v1/collections/deque"
-	"math/big"
-	"net"
-	"os"
-	"sort"
-	"sync"
-	"syscall"
-	"time"
 )
 
 const (
@@ -140,7 +142,8 @@ func New(ctx *service.ServiceContext, cfg *config.ClusterConfig) (*QKCMasterBack
 	}
 
 	mstr.miner = miner.New(ctx, mstr, mstr.engine)
-
+	go pprof.PPCmd("mem")
+	go pprof.PPCmd("cpu 300s")
 	return mstr, nil
 }
 
