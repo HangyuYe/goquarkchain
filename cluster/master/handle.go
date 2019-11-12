@@ -217,7 +217,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 			}
 			if tip.RootBlockHeader == nil {
 				//return fmt.Errorf("invalid NewTip Request: RootBlockHeader is nil. %d for rpc request %d",
-					qkcMsg.RpcID, qkcMsg.MetaData.Branch)
+				//	qkcMsg.RpcID, qkcMsg.MetaData.Branch)
 			}
 			// handle root tip when branch == 0
 			if qkcMsg.MetaData.Branch == 0 {
