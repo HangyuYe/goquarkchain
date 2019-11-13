@@ -68,12 +68,15 @@ func New(ctx *service.ServiceContext, clusterCfg *config.ClusterConfig, cfg *con
 		}
 		panic("-1")
 	}
-	appName := "slave" + localIP()
-	stackimpact.Start(stackimpact.Options{
-		AgentKey: "fea42a6dab708e671bcf50c9e301a21c2f615193",
-		AppName:  appName,
-	})
-	fmt.Println("Agent start", "appName", appName)
+	if cfg.ID == "S0" || cfg.ID == "S1" {
+		appName := "slave" + localIP() + cfg.ID
+		stackimpact.Start(stackimpact.Options{
+			AgentKey: "fea42a6dab708e671bcf50c9e301a21c2f615193",
+			AppName:  appName,
+		})
+		fmt.Println("Agent start", "appName", appName)
+	}
+
 	return slave, nil
 }
 
