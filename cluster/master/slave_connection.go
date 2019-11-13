@@ -634,6 +634,8 @@ func (s *SlaveConnection) HandleNewMinorBlock(request *p2p.NewBlockMinor) (bool,
 	if err != nil {
 		return false, err
 	}
+	log.Error("scf", "send to slave send hash", request.Block.Hash().String())
+	defer log.Error("scf", "send to slave send-end hash", request.Block.Hash().String())
 	_, err = s.client.Call(s.target, &rpc.Request{Op: rpc.OpHandleNewMinorBlock, Data: blockData})
 	if err != nil {
 		return false, err

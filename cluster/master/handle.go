@@ -235,6 +235,8 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 			if err := serialize.DeserializeFromBytes(qkcMsg.Data, &newBlockMinor); err != nil {
 				//return err
 			}
+			log.Error("scf", "receive NewBlockMinor hash", newBlockMinor.Block.Hash().String())
+			defer log.Error("scf", "receive NewBlockMinor-end hash", newBlockMinor.Block.Hash().String())
 			if branch != newBlockMinor.Block.Branch().Value {
 				//return fmt.Errorf("invalid NewBlockMinor Request: mismatch branch value from peer %v. in request meta: %d, in minor header: %d",
 				//	peer.id, branch, newBlockMinor.Block.Branch().Value)

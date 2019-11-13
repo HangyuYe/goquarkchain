@@ -8,6 +8,7 @@ import (
 	"github.com/QuarkChain/goquarkchain/p2p"
 	"github.com/QuarkChain/goquarkchain/serialize"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/log"
 )
 
 func (s *ConnManager) SendMinorBlockHeaderToMaster(request *rpc.AddMinorBlockHeaderRequest) error {
@@ -80,7 +81,8 @@ func (s *ConnManager) BroadcastMinorBlock(minorBlock *types.MinorBlock, branch u
 	if err != nil {
 		return err
 	}
-
+	log.Error("scf", "slave send hash", minorBlock.Hash().String())
+	defer log.Error("scf", "slave send-end hash", minorBlock.Hash().String())
 	_, err = s.masterClient.client.Call(s.masterClient.target, &rpc.Request{Op: rpc.OpBroadcastNewMinorBlock, Data: data})
 	return err
 }

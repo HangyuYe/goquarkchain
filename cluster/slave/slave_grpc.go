@@ -683,6 +683,8 @@ func (s *SlaveServerSideOp) HandleNewMinorBlock(ctx context.Context, req *rpc.Re
 	if err = serialize.DeserializeFromBytes(req.Data, &gReq); err != nil {
 		return nil, err
 	}
+	log.Error("scf", "send to slave send hash", gReq.Hash().String())
+	defer log.Error("scf", "send to slave send-end hash", gReq.Hash().String())
 	if err = s.slave.NewMinorBlock(&gReq); err != nil {
 		return nil, err
 	}
