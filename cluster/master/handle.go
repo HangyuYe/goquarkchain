@@ -228,7 +228,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		go pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, qkcMsg.Data)
 
 	case qkcMsg.Op == p2p.NewBlockMinorMsg:
-		return nil
+		//return nil
 		go func() {
 			var newBlockMinor p2p.NewBlockMinor
 			branch := qkcMsg.MetaData.Branch
