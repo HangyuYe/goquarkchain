@@ -72,7 +72,7 @@ func (s *ConnManager) BroadcastTransactions(peerId string, branch uint32, txs []
 }
 
 func (s *ConnManager) BroadcastMinorBlock(minorBlock *types.MinorBlock, branch uint32) error {
-	return nil
+	//return nil
 	var (
 		gReq = rpc.BroadcastMinorBlock{MinorBlock: minorBlock, Branch: branch}
 	)
