@@ -955,6 +955,7 @@ func (m *MinorBlockChain) WriteBlockWithoutState(block types.IBlock, td *big.Int
 		return err
 	}
 	rawdb.WriteMinorBlock(m.db, block.(*types.MinorBlock))
+	m.blockCache.Add(block.Hash(), block.(*types.MinorBlock))
 
 	return nil
 }
@@ -1215,7 +1216,7 @@ func (m *MinorBlockChain) insertChain(chain []types.IBlock, verifySeals bool, is
 			block, err = it.next()
 		}
 		// Falls through to the block import
-		xShardList = append(xShardList, make([]*types.CrossShardTransactionDeposit,0))
+		xShardList = append(xShardList, make([]*types.CrossShardTransactionDeposit, 0))
 	// Some other error occurred, abort
 	case err != nil:
 		stats.ignored += len(it.chain)
