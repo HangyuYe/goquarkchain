@@ -171,16 +171,15 @@ func (s *ShardBackend) GetHeaderByHash(blockHash common.Hash) (*types.MinorBlock
 }
 
 func (s *ShardBackend) HandleNewTip(rBHeader *types.RootBlockHeader, mBHeader *types.MinorBlockHeader, peerID string) error {
-	if s.MinorBlockChain.CurrentHeader().NumberU64() >= mBHeader.Number {
-		return nil
-	}
-
 	if s.MinorBlockChain.GetRootBlockByHash(mBHeader.PrevRootBlockHash) == nil {
 		log.Debug(s.logInfo, "preRootBlockHash do not have height ,no need to add task", mBHeader.Number, "preRootHash", mBHeader.PrevRootBlockHash.String())
 		return nil
 	}
 	if s.MinorBlockChain.CurrentBlock().Number() >= mBHeader.Number {
 		log.Info(s.logInfo, "no need t sync curr height", s.MinorBlockChain.CurrentBlock().Number(), "tipHeight", mBHeader.Number)
+		return nil
+	}
+	if s.mBPool.getBlockInPool(mBHeader.Hash()) != nil {
 		return nil
 	}
 	peer := &peer{cm: s.conn, peerID: peerID}
