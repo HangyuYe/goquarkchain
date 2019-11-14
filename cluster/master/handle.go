@@ -433,6 +433,7 @@ func (pm *ProtocolManager) HandleNewMinorTip(branch uint32, tip *p2p.Tip, peer *
 				tip.MinorBlockHeaderList[0].Number, minorTip.MinorBlockHeaderList[0].Number)
 		}
 	}
+	log.Error("PPPPP", "peerID", peer.id, "branch", branch, "RootTip", tip.RootBlockHeader.Number, "minTip", tip.MinorBlockHeaderList[0].Number)
 	peer.SetMinorHead(branch, tip)
 	clients := pm.slaveConns.GetSlaveConnsById(branch)
 	if len(clients) == 0 {
