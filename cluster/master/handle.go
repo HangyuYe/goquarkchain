@@ -302,12 +302,14 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListRequestMsg:
-		resp, err := pm.HandleGetMinorBlockHeaderListRequest(qkcMsg.MetaData.Branch, qkcMsg.Data)
-		if err != nil {
-			return err
-		}
+		go func() {
+			resp, err := pm.HandleGetMinorBlockHeaderListRequest(qkcMsg.MetaData.Branch, qkcMsg.Data)
+			if err != nil {
+				//return err
+			}
 
-		return peer.SendResponseWithData(p2p.GetMinorBlockHeaderListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+			peer.SendResponseWithData(p2p.GetMinorBlockHeaderListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		}()
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListResponseMsg:
 		if c := peer.getChan(qkcMsg.RpcID); c != nil {
@@ -317,11 +319,14 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		}
 
 	case qkcMsg.Op == p2p.GetMinorBlockListRequestMsg:
-		resp, err := pm.HandleGetMinorBlockListRequest(peer.id, qkcMsg.MetaData.Branch, qkcMsg.Data)
-		if err != nil {
-			return err
-		}
-		return peer.SendResponseWithData(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		go func() {
+			resp, err := pm.HandleGetMinorBlockListRequest(peer.id, qkcMsg.MetaData.Branch, qkcMsg.Data)
+			if err != nil {
+				//return err
+			}
+			peer.SendResponseWithData(p2p.GetMinorBlockListResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+
+		}()
 
 	case qkcMsg.Op == p2p.GetMinorBlockListResponseMsg:
 		if c := peer.getChan(qkcMsg.RpcID); c != nil {
@@ -334,11 +339,13 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		panic("not implemented")
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListWithSkipRequestMsg:
-		resp, err := pm.HandleGetMinorBlockHeaderListWithSkipRequest(peer.id, qkcMsg.MetaData.Branch, qkcMsg.Data)
-		if err != nil {
-			return err
-		}
-		return peer.SendResponseWithData(p2p.GetMinorBlockHeaderListWithSkipResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		go func() {
+			resp, err := pm.HandleGetMinorBlockHeaderListWithSkipRequest(peer.id, qkcMsg.MetaData.Branch, qkcMsg.Data)
+			if err != nil {
+				//return err
+			}
+			peer.SendResponseWithData(p2p.GetMinorBlockHeaderListWithSkipResponseMsg, p2p.Metadata{Branch: qkcMsg.MetaData.Branch}, qkcMsg.RpcID, resp)
+		}()
 
 	case qkcMsg.Op == p2p.GetMinorBlockHeaderListWithSkipResponseMsg:
 		if c := peer.getChan(qkcMsg.RpcID); c != nil {
