@@ -415,7 +415,7 @@ func (pm *ProtocolManager) HandleNewMinorTip(branch uint32, tip *p2p.Tip, peer *
 			peer.id, branch, tip.MinorBlockHeaderList[0].Branch.Value)
 	}
 
-	log.Warn("PPPPP", "peerID", peer.id, "branch", branch, "RootTip", tip.RootBlockHeader.Number, "tipHash", tip.RootBlockHeader.Hash().String(), "minTip", tip.MinorBlockHeaderList[0].Number)
+	log.Warn("PPPPP", "peerID", peer.id, "branch", branch, "RootTip", tip.RootBlockHeader.Number, "tipHash", tip.RootBlockHeader.Hash().String(), "minTip", tip.MinorBlockHeaderList[0].Number, "minorTipHash", tip.MinorBlockHeaderList[0].Hash().String())
 	if minorTip := peer.MinorHead(branch); minorTip != nil && minorTip.RootBlockHeader != nil {
 		if minorTip.RootBlockHeader.ToTalDifficulty.Cmp(tip.RootBlockHeader.ToTalDifficulty) > 0 {
 			return fmt.Errorf("peerID %v best observed root header height is decreasing %d < %d branch %d  hash %v hash %v", peer.id,
