@@ -420,8 +420,8 @@ func (pm *ProtocolManager) HandleNewMinorTip(branch uint32, tip *p2p.Tip, peer *
 
 	if minorTip := peer.MinorHead(branch); minorTip != nil && minorTip.RootBlockHeader != nil {
 		if minorTip.RootBlockHeader.ToTalDifficulty.Cmp(tip.RootBlockHeader.ToTalDifficulty) > 0 {
-			return fmt.Errorf("best observed root header height is decreasing %d < %d",
-				tip.RootBlockHeader.Number, minorTip.RootBlockHeader.Number)
+			return fmt.Errorf("best observed root header height is decreasing %d < %d branch %d",
+				tip.RootBlockHeader.Number, minorTip.RootBlockHeader.Number, branch)
 		}
 		if minorTip.RootBlockHeader.ToTalDifficulty.Cmp(tip.RootBlockHeader.ToTalDifficulty) == 0 &&
 			minorTip.RootBlockHeader.Hash() != tip.RootBlockHeader.Hash() {
@@ -433,7 +433,7 @@ func (pm *ProtocolManager) HandleNewMinorTip(branch uint32, tip *p2p.Tip, peer *
 				tip.MinorBlockHeaderList[0].Number, minorTip.MinorBlockHeaderList[0].Number)
 		}
 	}
-	log.Error("PPPPP", "peerID", peer.id, "branch", branch, "RootTip", tip.RootBlockHeader.Number, "minTip", tip.MinorBlockHeaderList[0].Number)
+	log.Warn("PPPPP", "peerID", peer.id, "branch", branch, "RootTip", tip.RootBlockHeader.Number, "minTip", tip.MinorBlockHeaderList[0].Number)
 	peer.SetMinorHead(branch, tip)
 	clients := pm.slaveConns.GetSlaveConnsById(branch)
 	if len(clients) == 0 {
