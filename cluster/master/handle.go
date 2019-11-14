@@ -414,14 +414,12 @@ func (pm *ProtocolManager) HandleNewMinorTip(branch uint32, tip *p2p.Tip, peer *
 		return fmt.Errorf("invalid NewTip Request: mismatch branch value from peer %v. in request meta: %d, in minor header: %d",
 			peer.id, branch, tip.MinorBlockHeaderList[0].Branch.Value)
 	}
-	/*if pm.rootBlockChain.CurrentBlock().NumberU64() != tip.RootBlockHeader.NumberU64() {
-		return nil
-	}*/
 
+	log.Warn("PPPPP", "peerID", peer.id, "branch", branch, "RootTip", tip.RootBlockHeader.Number, "tipHash", tip.RootBlockHeader.Hash().String(), "minTip", tip.MinorBlockHeaderList[0].Number)
 	if minorTip := peer.MinorHead(branch); minorTip != nil && minorTip.RootBlockHeader != nil {
 		if minorTip.RootBlockHeader.ToTalDifficulty.Cmp(tip.RootBlockHeader.ToTalDifficulty) > 0 {
-			return fmt.Errorf("best observed root header height is decreasing %d < %d branch %d",
-				tip.RootBlockHeader.Number, minorTip.RootBlockHeader.Number, branch)
+			return fmt.Errorf("peerID %v best observed root header height is decreasing %d < %d branch %d  hash %v hash %v", peer.id,
+				tip.RootBlockHeader.Number, minorTip.RootBlockHeader.Number, branch, tip.RootBlockHeader.Hash().String(), minorTip.RootBlockHeader.Hash().String())
 		}
 		if minorTip.RootBlockHeader.ToTalDifficulty.Cmp(tip.RootBlockHeader.ToTalDifficulty) == 0 &&
 			minorTip.RootBlockHeader.Hash() != tip.RootBlockHeader.Hash() {
@@ -433,7 +431,6 @@ func (pm *ProtocolManager) HandleNewMinorTip(branch uint32, tip *p2p.Tip, peer *
 				tip.MinorBlockHeaderList[0].Number, minorTip.MinorBlockHeaderList[0].Number)
 		}
 	}
-	log.Warn("PPPPP", "peerID", peer.id, "branch", branch, "RootTip", tip.RootBlockHeader.Number, "minTip", tip.MinorBlockHeaderList[0].Number)
 	peer.SetMinorHead(branch, tip)
 	clients := pm.slaveConns.GetSlaveConnsById(branch)
 	if len(clients) == 0 {

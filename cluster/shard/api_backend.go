@@ -430,6 +430,7 @@ func (s *ShardBackend) broadcastNewTip() (err error) {
 		minorTip = s.MinorBlockChain.CurrentBlock().Header()
 	)
 
+	log.Warn("SendTip", "branch", s.branch.Value, "rootTip-Number", rootTip.Number, "MinorTip-Number", minorTip.Number)
 	err = s.conn.BroadcastNewTip([]*types.MinorBlockHeader{minorTip}, rootTip, s.branch.Value)
 	return
 }
