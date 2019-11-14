@@ -668,10 +668,9 @@ func (s *SlaveServerSideOp) HandleNewTip(ctx context.Context, req *rpc.Request) 
 
 func (s *SlaveServerSideOp) AddTransactions(ctx context.Context, req *rpc.Request) (*rpc.Response, error) {
 	var (
-		gReq     rpc.P2PRedirectRequest
-		txs      p2p.NewTransactionList
-		response = &rpc.Response{RpcId: req.RpcId}
-		err      error
+		gReq rpc.P2PRedirectRequest
+		txs  p2p.NewTransactionList
+		err  error
 	)
 
 	if err = serialize.DeserializeFromBytes(req.Data, &gReq); err != nil {
@@ -697,7 +696,7 @@ func (s *SlaveServerSideOp) AddTransactions(ctx context.Context, req *rpc.Reques
 
 	if gReq.Branch != 0 {
 		err := addTxList(gReq.Branch, txs.TransactionList)
-		return response, err
+		return new(rpc.Response), err
 	}
 
 	var (
@@ -733,24 +732,29 @@ func (s *SlaveServerSideOp) AddTransactions(ctx context.Context, req *rpc.Reques
 		})
 	}
 
-	return response, g.Wait()
+	return new(rpc.Response), g.Wait()
 }
 
 func (s *SlaveServerSideOp) HandleNewMinorBlock(ctx context.Context, req *rpc.Request) (*rpc.Response, error) {
 	var (
-		gReq     types.MinorBlock
-		response = &rpc.Response{RpcId: req.RpcId}
-		err      error
+		gReq   rpc.P2PRedirectRequest
+		mblock p2p.NewBlockMinor
+		err    error
 	)
 	if err = serialize.DeserializeFromBytes(req.Data, &gReq); err != nil {
 		return nil, err
 	}
-	log.Error("scf", "send to slave send hash", gReq.Hash().String())
-	defer log.Error("scf", "send to slave send-end hash", gReq.Hash().String())
-	if err = s.slave.NewMinorBlock(&gReq); err != nil {
+	if err = serialize.DeserializeFromBytes(gReq.Data, &mblock); err != nil {
 		return nil, err
 	}
-	return response, nil
+	if gReq.Branch != mblock.Block.Branch().Value {
+		return nil, fmt.Errorf("invalid NewBlockMinor Request: mismatch branch value from peer %v. in request meta: %d, in minor header: %d",
+			gReq.PeerID, gReq.Branch, mblock.Block.Branch().Value)
+	}
+	if err = s.slave.NewMinorBlock(gReq.PeerID, mblock.Block); err != nil {
+		return nil, err
+	}
+	return &rpc.Response{}, nil
 }
 
 func (s *SlaveServerSideOp) SetMining(ctx context.Context, req *rpc.Request) (*rpc.Response, error) {
