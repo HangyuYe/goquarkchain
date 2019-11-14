@@ -230,7 +230,7 @@ func (pm *ProtocolManager) handleMsg(peer *Peer) error {
 		go pm.HandleNewTransactionListRequest(peer.id, qkcMsg.RpcID, qkcMsg.MetaData.Branch, qkcMsg.Data)
 
 	case qkcMsg.Op == p2p.NewBlockMinorMsg:
-		return pm.HandleNewMinorBlock(peer.id, qkcMsg.MetaData.Branch, qkcMsg.Data)
+		go pm.HandleNewMinorBlock(peer.id, qkcMsg.MetaData.Branch, qkcMsg.Data)
 
 	case qkcMsg.Op == p2p.GetRootBlockHeaderListRequestMsg:
 		var blockHeaderReq p2p.GetRootBlockHeaderListRequest
