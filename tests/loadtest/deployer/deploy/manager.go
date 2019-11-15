@@ -192,7 +192,7 @@ func (t *ToolManager) StartCluster(clusterIndex int) {
 	}
 
 	t.startSlave(slaveIpLists)
-	time.Sleep(10 * time.Second)
+	time.Sleep(5 * time.Second)
 	t.startMaster(masterIp)
 
 }

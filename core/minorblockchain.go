@@ -366,7 +366,6 @@ func (m *MinorBlockChain) GasLimit() uint64 {
 func (m *MinorBlockChain) CurrentBlock() *types.MinorBlock {
 	loaded := m.currentBlock.Load()
 	if loaded == nil {
-		fmt.Println("3333333333333")
 		return nil
 	}
 	return loaded.(*types.MinorBlock)
@@ -1106,7 +1105,6 @@ func (m *MinorBlockChain) InsertChainForDeposits(chain []types.IBlock, isCheckDB
 
 	m.PostChainEvents(events, logs)
 	confirmed := m.confirmedHeaderTip
-
 	if confirmed == nil {
 		log.Warn("confirmed is nil")
 	} else {
