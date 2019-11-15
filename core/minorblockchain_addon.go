@@ -1282,7 +1282,7 @@ func (m *MinorBlockChain) putTxIndexFromBlock(batch rawdb.DatabaseWriter, block 
 	rawdb.WriteBlockContentLookupEntriesWithCrossShardHashList(batch, block, deposit)
 	minorBlock, ok := block.(*types.MinorBlock)
 	if !ok {
-		return errors.New("minor block is nil")
+		return errors.New("minor block is nil-1")
 	}
 	for index, tx := range minorBlock.Transactions() { // put qkc's inshard tx
 		if err := m.putTxHistoryIndex(tx, minorBlock.Number(), index); err != nil {

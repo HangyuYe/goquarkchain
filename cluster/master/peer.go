@@ -140,12 +140,12 @@ func (p *Peer) close() {
 }
 
 func (p *Peer) setErr(err error) {
-	defer func() {
-		if recover() != nil {
-			return
-		}
-	}()
-	p.errorChain <- err
+	select {
+	case <-p.errorChain:
+		return
+	default:
+		p.errorChain <- err
+	}
 }
 func (p *Peer) getRpcId() uint64 {
 	p.lock.Lock()

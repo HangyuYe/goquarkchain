@@ -39,7 +39,7 @@ var (
 	ErrInvalidNumber = errors.New("invalid block number")
 
 	errNoGenesis                 = errors.New("genesis not found in chain")
-	ErrMinorBlockIsNil           = errors.New("minor block is nil")
+	ErrMinorBlockIsNil           = errors.New("minor block is nil-2")
 	ErrRootBlockIsNil            = errors.New("root block is nil")
 	ErrInvalidMinorBlock         = errors.New("minor block is invalid")
 	ErrHeightMismatch            = errors.New("block height not match")
