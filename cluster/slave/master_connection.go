@@ -59,6 +59,9 @@ func (s *ConnManager) BroadcastNewTip(mHeaderLst []*types.MinorBlockHeader, rHea
 }
 
 func (s *ConnManager) BroadcastTransactions(peerId string, branch uint32, txs []*types.Transaction) error {
+	if len(txs) == 0 {
+		return nil
+	}
 	raw, err := serialize.SerializeToBytes(&p2p.NewTransactionList{TransactionList: txs})
 	if err != nil {
 		return err
