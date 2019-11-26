@@ -2,45 +2,72 @@
 
 *Please replace the square brackets and the text in it with your answers*
 
+#### Tests Round
+
+Round 5
+
 **Number of CPUs**
 
-[How many logical CPUs does the machine have for running one cluster?]
+[ 64 Core * 8 ]
 
 **Memory (GB)**
 
-[How much memory does the machine have for running one cluster? For example, 16G.]
+[ 256 GB ]
 
 **Storage (GB)**
 
-[Note down both the type and capacity of the storage on one machine. For example, SSD 1024G.]
+[ HDD 50 GB ]
 
 **Network**
 
-[Comment on the network connecting clusters. For example, 1 Gbps LAN]
+[ 1 Gbps LAN ]
 
 **Machine Type (Optional)**
 
-[If you are using public cloud service, note down the name of the provider and the machine type. For example, AWS EC2 m5.2xlarge.]
+[ 腾讯云：标准型SA1 ]
 
 **Command Lines for Running Cluster**
 ```
-[Copy the command line here]
+go run deployer_config.go
 ```
+For more details please see deployer_config.json
 
 **Peak TPS**
 
-[Note down the highest TPS observed.]
+[ 173,119 ]
 
 **Video URL**
 
-[URL for the video showing how you produced the above TPS.]
+[Youtube](https://youtu.be/wcHr-OAE-YI)
 
 **Output From `stats` Tool**
 ```
-[Copy the complete output from `stats` here. It should capture the cluster configuration and at least 10 minute continuous samples (60 rows) with at least one sample showing the TPS claimed above.]
+2019-11-26 16:04:13     false   70723.00        1699715 4243390 225.80  0.00    99.97   2       
+2019-11-26 16:04:15     false   72132.00        2321565 4327935 230.42  0.00    99.98   2       
+2019-11-26 16:04:17     false   76035.00        2778492 4562155 234.57  0.00    99.88   2       
+2019-11-26 16:04:19     false   83300.00        2995360 4998035 238.67  0.00    99.94   2       
+2019-11-26 16:04:21     false   93669.00        3149633 5620175 243.37  0.00    99.97   2       
+2019-11-26 16:04:23     false   103116.00       2921055 6186995 246.15  0.00    100.00  2       
+2019-11-26 16:04:25     false   114251.00       2326139 6855070 246.15  0.00    99.84   2       
+2019-11-26 16:04:27     false   125558.00       1585183 7533505 240.78  0.00    99.94   2       
+2019-11-26 16:04:29     false   132570.00       957550  7954200 236.12  0.00    99.94   2       
+2019-11-26 16:04:31     false   135208.00       720643  8112535 234.37  0.00    100.00  2       
+2019-11-26 16:04:36     false   137037.00       855278  8222265 234.50  0.00    99.86   3       
+2019-11-26 16:04:38     false   138723.00       1575265 8323390 233.93  0.00    99.98   3       
+2019-11-26 16:04:39     false   145264.00       2318373 8715875 231.37  0.00    100.00  3       
+2019-11-26 16:04:41     false   148778.00       2447850 8926685 229.53  0.00    99.97   3       
+2019-11-26 16:04:43     false   152758.00       2582722 9167765 227.30  0.00    99.98   3       
+2019-11-26 16:04:45     false   157558.00       2642184 9492375 219.77  0.00    99.98   3       
+2019-11-26 16:04:47     false   167119.00       2491163 10150005        211.97  0.00    99.98   3       
+2019-11-26 16:04:49     false   173119.00       2403429 10708810        206.05  0.00    99.98   3       
+2019-11-26 16:04:51     false   172102.00       2176584 10961955        204.43  0.00    100.00  3       
+2019-11-26 16:04:53     false   169076.00       1854581 11296285        202.78  0.00    100.00  3       
+2019-11-26 16:04:55     false   163497.00       1574143 11559790        202.15  0.00    100.00  3       
+2019-11-26 16:04:57     false   159746.00       1298857 11806125        203.52  0.00    99.97   3       
+2019-11-26 16:04:59     false   153689.00       1156304 12099905        204.97  0.00    99.89   3       
+2019-11-26 16:05:01     false   148174.00       1291723 12271360        206.67  0.00    99.98   3   
 ```
 
 **Additional Comment**
 
-[If you have special setup, e.g., running a single cluster over multiple machines, the above questionnaire might not fit. Note down
-whatever you want us to know here to help evaluate the result.]
+[ For tests round 5 using 64 slave for each cluster, and 512 chains in total, each chain has 2 shards. ]
