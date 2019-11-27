@@ -13,3 +13,6 @@
 .idea
 .vscode
 cmd/cluster/cluster
+tests/loadtest/.DS_Store
+tests/.DS_Store
+.DS_Store
