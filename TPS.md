@@ -195,6 +195,10 @@ Timestamp		Syncing	TPS	Pend.TX	Conf.TX	BPS	SBPS	CPU	ROOT	CHAIN/SHARD-HEIGHT
 
 ```
 
+**Cluster Configurations**
+[cluster_config_template](https://github.com/HangyuYe/goquarkchain/blob/master/tests/loadtest/deployer/cluster_config_template.json)
+[deployer_config](https://github.com/HangyuYe/goquarkchain/blob/master/tests/loadtest/deployer/deployConfig.json)
+
 **Additional Comment**
 
 [ For tests round 6 using 32 slave for main cluster, and 128 chains in total, each chain has 2 shards. ]

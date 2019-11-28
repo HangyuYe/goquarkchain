@@ -5,7 +5,6 @@
       "IP": "172.27.16.8",
       "Port": 22,
       "User": "root",
-      "Password": "Hangyu950214",
       "IsMaster":true,
       "SlaveNumber": 20,
       "ClusterID": 0
@@ -14,7 +13,6 @@
       "IP": "172.27.16.2",
       "Port": 22,
       "User": "root",
-      "Password": "Hangyu950214",
       "IsMaster":false,
       "SlaveNumber": 20,
       "ClusterID": 0
@@ -23,7 +21,6 @@
       "IP": "172.27.16.17",
       "Port": 22,
       "User": "root",
-      "Password": "Hangyu950214",
       "IsMaster":false,
       "SlaveNumber": 20,
       "ClusterID": 0
@@ -32,7 +29,6 @@
       "IP": "172.27.16.14",
       "Port": 22,
       "User": "root",
-      "Password": "Hangyu950214",
       "IsMaster": false,
       "SlaveNumber": 20,
       "ClusterID": 0
@@ -41,7 +37,6 @@
       "IP": "172.27.16.10",
       "Port": 22,
       "User": "root",
-      "Password": "Hangyu950214",
       "IsMaster": false,
       "SlaveNumber": 48,
       "ClusterID": 0
@@ -49,7 +44,6 @@
     {"IP": "172.27.16.11",
       "Port": 22,
       "User": "root",
-      "Password": "Hangyu950214",
       "IsMaster": true,
       "SlaveNumber": 64,
       "ClusterID": 1
@@ -57,7 +51,6 @@
     {"IP": "172.27.16.3",
       "Port": 22,
       "User": "root",
-      "Password": "Hangyu950214",
       "IsMaster": true,
       "SlaveNumber": 64,
       "ClusterID": 2
