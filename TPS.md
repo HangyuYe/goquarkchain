@@ -39,7 +39,7 @@ For more details please see deployer_config.json
 **Video URL**
 
 [Youtube](https://youtu.be/dkbUWvvzYyQ)
-[Bilibili]()
+[Bilibili](https://www.bilibili.com/video/av77251324/)
 
 
 **Output From `stats` Tool**
