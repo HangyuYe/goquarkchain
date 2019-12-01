@@ -6,7 +6,7 @@
       "Port": 22,
       "User": "root",
       "IsMaster":true,
-      "SlaveNumber": 20,
+      "SlaveNumber": 16,
       "ClusterID": 0
     },
     {
@@ -14,7 +14,7 @@
       "Port": 22,
       "User": "root",
       "IsMaster":false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 30,
       "ClusterID": 0
     },
     {
@@ -22,7 +22,7 @@
       "Port": 22,
       "User": "root",
       "IsMaster":false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 30,
       "ClusterID": 0
     },
     {
@@ -30,7 +30,7 @@
       "Port": 22,
       "User": "root",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 30,
       "ClusterID": 0
     },
     {
@@ -38,25 +38,74 @@
       "Port": 22,
       "User": "root",
       "IsMaster": false,
-      "SlaveNumber": 48,
+      "SlaveNumber": 30,
       "ClusterID": 0
     },
     {"IP": "172.27.16.11",
       "Port": 22,
       "User": "root",
-      "IsMaster": true,
-      "SlaveNumber": 64,
-      "ClusterID": 1
+      "IsMaster": false,
+      "SlaveNumber": 30,
+      "ClusterID": 0
     },
     {"IP": "172.27.16.3",
       "Port": 22,
       "User": "root",
+      "IsMaster": false,
+      "SlaveNumber": 30,
+      "ClusterID": 0
+    },
+    {"IP": "172.27.16.5",
+      "Port": 22,
+      "User": "root",
+      "IsMaster": false,
+      "SlaveNumber": 30,
+      "ClusterID": 0
+    },
+    {"IP": "172.27.16.47",
+      "Port": 22,
+      "User": "root",
+      "IsMaster": false,
+      "SlaveNumber": 8,
+      "ClusterID": 0
+    },
+    {"IP": "172.27.16.32",
+      "Port": 22,
+      "User": "root",
+      "IsMaster": false,
+      "SlaveNumber": 8,
+      "ClusterID": 0
+    },
+    {"IP": "172.27.16.45",
+      "Port": 22,
+      "User": "root",
+      "IsMaster": false,
+      "SlaveNumber": 8,
+      "ClusterID": 0
+    },
+    {"IP": "172.27.16.44",
+      "Port": 22,
+      "User": "root",
+      "IsMaster": false,
+      "SlaveNumber": 6,
+      "ClusterID": 0
+    },
+    {"IP": "172.27.16.21",
+      "Port": 22,
+      "User": "root",
       "IsMaster": true,
-      "SlaveNumber": 64,
+      "SlaveNumber": 4,
+      "ClusterID": 1
+    },
+    {"IP": "172.27.16.27",
+      "Port": 22,
+      "User": "root",
+      "IsMaster": true,
+      "SlaveNumber": 4,
       "ClusterID": 2
     }
   ],
-  "CHAIN_SIZE": 128,
+  "CHAIN_SIZE": 256,
   "SHARD_SIZE": 2,
   "ExtraClusterConfig": {
     "TargetRootBlockTime": 20,
