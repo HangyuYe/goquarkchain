@@ -1,61 +1,3 @@
-# TPS Competition Questionnaire
-
-*Please replace the square brackets and the text in it with your answers*
-
-**Number of CPUs**
-```
-[
-  {
-    "Cluster 0": "64 Core * 20"
-  },
-  {
-    "Cluster 1": "80 Core * 4"
-  },
-  {
-    "Cluster 2": "16 Core * 4"
-  }
-]
-```
-
-**Memory (GB)**
-```
-[
-    320 GB --> 80 Core
-    128 GB --> 64 Core
-    64  GB --> 16 Core
-]
-```
-**Storage (GB)**
-
-[ HDD 50 GB ]
-
-**Network**
-
-[ 1 Gbps LAN ]
-
-**Machine Type (Optional)**
-
-[ 腾讯云：标准型SA1 + 标准型S3 ]
-
-**Command Lines for Running Cluster**
-```
-go run deployer_config.go
-```
-For more details please see deployer_config.json
-
-**Peak TPS**
-
-[ **Cluster 0: 478794.00** ]
-[ **Cluster 1: 318052.00** ]
-
-**Video URL**
-
-[Youtube](https://youtu.be/vfsM9xmDjVA)   
-[Bilibili](https://www.bilibili.com/video/av77759471/)  
-
-**Output From `stats` Tool**
-
-```
 ============================
 QuarkChain Cluster Stats
 ============================
@@ -89,15 +31,47 @@ Timestamp		Syncing	TPS	        Pend.TX	Conf.TX	 BPS	SBPS	CPU	ROOT	CHAIN/SHARD-HE
 2019-12-03 18:21:54	false	325690.00	10965516	218912762	279.35	0.00	36.04	19
 2019-12-03 18:22:24	false	358207.00	8155443	226843523	270.00	0.00	54.44	20
 2019-12-03 18:22:54	false	350663.00	6360080	239484122	284.75	0.00	22.49	21
-```  
 
-[stats_output](https://github.com/HangyuYe/goquarkchain/logs/stats_output.txt)
 
-**Cluster Configurations**
 
-[cluster_config_template](https://github.com/HangyuYe/goquarkchain/blob/master/tests/loadtest/deployer/cluster_config_template.json)  
-[deployer_config](https://github.com/HangyuYe/goquarkchain/blob/master/tests/loadtest/deployer/deployConfig.json)  
 
-**Additional Comment**
 
-[ For tests round 3 using 256 slave for main cluster, and 256 chains in total, each chain has 4 shards. ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
