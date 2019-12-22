@@ -6,13 +6,19 @@
 ```
 [
   {
-    "Cluster 0": "64 Core * 20"
+    "Cluster 0":
+    "Independent Master" = true
+    "Salve Servers" = "64 Core * 42"
   },
   {
-    "Cluster 1": "80 Core * 4"
+    "Cluster 1":
+    "Independent Master" = false
+    "Slaves Servers" = "64 Core * 32"
   },
   {
-    "Cluster 2": "16 Core * 4"
+    "Cluster 2":
+    "Independent Master" = false
+    "Slaves Servers" = "64 Core * 16"
   }
 ]
 ```
@@ -20,14 +26,12 @@
 **Memory (GB)**
 ```
 [
-    320 GB --> 80 Core
-    128 GB --> 64 Core
-    64  GB --> 16 Core
+    256 GB --> 64 Core
 ]
 ```
 **Storage (GB)**
 
-[ HDD 50 GB ]
+[ SSD 50 GB ]
 
 **Network**
 
@@ -45,53 +49,15 @@ For more details please see deployer_config.json
 
 **Peak TPS**
 
-[ **Cluster 0: 471487.00** ]
-[ **Cluster 1: 318052.00** ]
+[ **Cluster 0: 1121785.00** ]
+[ **Cluster 1: 1000023.00** ]
 
 **Video URL**
 
-[Youtube](https://youtu.be/vfsM9xmDjVA)   
-[Bilibili](https://www.bilibili.com/video/av77987479/)  
+[Youtube](https://youtu.be/_PDzU0GXjlw)   
 
 **Output From `stats` Tool**
 
-```
-============================
-QuarkChain Cluster Stats
-============================
-CPU:                2
-Memory:             3 GB
-IP:                 172.27.16.8
-Chains:             256
-Network Id:         3
-Peers:              172.27.16.3:38291,172.27.16.66:38291
-============================
-Timestamp             Syncing     TPS        Pend.TX      Conf.TX      BPS       SBPS    CPU        ROOT
-2019-12-03 18:12:24    false    58395.00     2515164      3503735      280.53    0.00    66.42      2
-2019-12-03 18:12:54    false    279355.00    2886308      16761300     306.68    0.00    71.44      3
-2019-12-03 18:13:24    false    471487.00    3640435      30590610     263.63    0.00    75.32      4
-2019-12-03 18:13:54    false    467018.00    3746526      44319575     257.70    0.00    81.87      5
-2019-12-03 18:14:24    false    452265.00    3196652      57025390     262.20    0.00    97.15      6
-2019-12-03 18:14:54    false    458184.00    5280118      71360775     257.97    0.00    79.23      7
-2019-12-03 18:15:24    false    464718.00    4922958      84577584     252.83    0.00    48.85      7
-2019-12-03 18:15:54    false    431349.00    2274728      96076875     273.64    0.00    9.56       8
-2019-12-03 18:16:24    false    366698.00    1731505      107257452    276.03    0.00    6.01       9
-2019-12-03 18:16:54    false    325437.00    3606008      115683978    287.33    0.00    85.48      10
-2019-12-03 18:17:24    false    351051.00    4534307      123666229    303.48    0.00    61.60      11
-2019-12-03 18:17:54    false    389343.00    5079197      137157223    280.25    0.00    83.48      12
-2019-12-03 18:18:24    false    351663.00    9130489      146830637    238.07    0.00    96.59      13
-2019-12-03 18:18:54    false    329539.00    11274372     156450265    222.53    0.00    99.46      14
-2019-12-03 18:19:24    false    386066.00    10262671     169672430    249.00    0.00    87.67      15
-2019-12-03 18:19:54    false    398512.00    2912206      180551783    279.08    0.00    79.66      16
-2019-12-03 18:20:24    false    350093.00    4715647      190076449    294.28    0.00    45.33      16
-2019-12-03 18:20:54    false    324205.00    5763036      199383356    291.45    0.00    94.64      18
-2019-12-03 18:21:24    false    328302.00    6375808      208884426    289.32    0.00    84.41      19
-2019-12-03 18:21:54    false    325690.00    10965516     218912762    279.35    0.00    36.04      19
-2019-12-03 18:22:24    false    358207.00    8155443      226843523    270.00    0.00    54.44      20
-2019-12-03 18:22:54    false    350663.00    6360080      239484122    284.75    0.00    22.49      21
-```  
-
-[stats_output](https://github.com/HangyuYe/goquarkchain/logs/stats_output.txt)
 
 **Cluster Configurations**
 
@@ -99,5 +65,3 @@ Timestamp             Syncing     TPS        Pend.TX      Conf.TX      BPS      
 [deployer_config](https://github.com/HangyuYe/goquarkchain/blob/master/tests/loadtest/deployer/deployConfig.json)  
 
 **Additional Comment**
-
-[ For tests round 3 using 256 slave for main cluster, and 256 chains in total, each chain has 4 shards. ]

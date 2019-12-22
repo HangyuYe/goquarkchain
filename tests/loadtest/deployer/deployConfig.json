@@ -2,251 +2,755 @@
   "DockerName": "quarkchaindocker/goquarkchain",
   "Hosts": [
     {
-      "IP": "172.27.16.8",
+      "IP": "172.16.0.4",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":true,
-      "SlaveNumber": 8,
+      "SlaveNumber": 0,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.34",
+      "IP": "172.16.16.39",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 10,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.47",
+      "IP": "172.16.16.61",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 10,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.62",
+      "IP": "172.16.16.124",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 10,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.48",
+      "IP": "172.16.16.52",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 10,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.93",
+      "IP": "172.16.16.92",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 10,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.57",
+      "IP": "172.16.16.78",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 10,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.86",
+      "IP": "172.16.16.135",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 10,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.40",
+      "IP": "172.16.16.93",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 10,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.92",
+      "IP": "172.16.16.90",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 17,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.38",
+      "IP": "172.16.16.101",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 17,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.81",
+      "IP": "172.16.16.9",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 17,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.69",
+      "IP": "172.16.16.28",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 17,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.55",
+      "IP": "172.16.16.116",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 17,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.7",
+      "IP": "172.16.16.145",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 17,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.35",
+      "IP": "172.16.16.44",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 17,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.14",
+      "IP": "172.16.16.4",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 17,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.9",
+      "IP": "172.16.16.79",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 17,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.64",
+      "IP": "172.16.16.138",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 15,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.27.16.3",
+      "IP": "172.16.16.8",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.115",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.137",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.23",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.3",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.42",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.22",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.18",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.48",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.47",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.7",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.6",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.41",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.109",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.53",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.142",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.77",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.136",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.102",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.68",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.126",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.84",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 24,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.130",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 34,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.16.95",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 30,
+      "ClusterID": 0
+    },
+    {
+      "IP": "172.16.0.10",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":true,
-      "SlaveNumber": 64,
+      "SlaveNumber": 32,
       "ClusterID": 1
     },
     {
-      "IP": "172.27.16.63",
+      "IP": "172.16.0.15",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 64,
+      "SlaveNumber": 32,
       "ClusterID": 1
     },
     {
-      "IP": "172.27.16.97",
+      "IP": "172.16.0.35",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 64,
+      "SlaveNumber": 32,
       "ClusterID": 1
     },
     {
-      "IP": "172.27.16.33",
+      "IP": "172.16.0.3",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 64,
+      "SlaveNumber": 32,
       "ClusterID": 1
     },
     {
-      "IP": "172.27.16.66",
+      "IP": "172.16.0.11",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.0.8",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.0.12",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.0.9",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.0.5",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.0.13",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.114",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.129",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.103",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.120",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.112",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.143",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.141",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.50",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.139",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.71",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.74",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.94",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.98",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.60",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.111",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.108",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.91",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.69",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.66",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.72",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.86",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.16.57",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 32,
+      "ClusterID": 1
+    },
+    {
+      "IP": "172.16.0.45",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":true,
-      "SlaveNumber": 8,
+      "SlaveNumber": 16,
       "ClusterID": 2
     },
     {
-      "IP": "172.27.16.21",
+      "IP": "172.16.0.17",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 8,
+      "SlaveNumber": 16,
       "ClusterID": 2
     },
     {
-      "IP": "172.27.16.39",
+      "IP": "172.16.0.16",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 8,
+      "SlaveNumber": 16,
       "ClusterID": 2
     },
     {
-      "IP": "172.27.16.70",
+      "IP": "172.16.0.14",
       "Port": 22,
       "User": "root",
       "Password": "Hangyu950214",
       "IsMaster":false,
-      "SlaveNumber": 8,
+      "SlaveNumber": 16,
+      "ClusterID": 2
+    },
+    {
+      "IP": "172.16.0.6",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 16,
+      "ClusterID": 2
+    },
+    {
+      "IP": "172.16.0.44",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 16,
+      "ClusterID": 2
+    },
+    {
+      "IP": "172.16.0.7",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 16,
+      "ClusterID": 2
+    },
+    {
+      "IP": "172.16.0.20",
+      "Port": 22,
+      "User": "root",
+      "Password": "Hangyu950214",
+      "IsMaster":false,
+      "SlaveNumber": 16,
       "ClusterID": 2
     }
   ],
-  "CHAIN_SIZE": 256,
-  "SHARD_SIZE": 4,
+  "CHAIN_SIZE": 1024,
+  "SHARD_SIZE": 2,
   "ExtraClusterConfig": {
     "TargetRootBlockTime": 20,
     "TargetMinorBlockTime": 4,
