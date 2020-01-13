@@ -2,912 +2,291 @@
   "DockerName": "quarkchaindocker/goquarkchain",
   "Hosts": [
     {
-      "IP": "172.16.0.4",
+      "IP": "172.17.0.45",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": true,
-      "SlaveNumber": 0,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.45",
+      "IP": "172.17.0.39",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.8",
+      "IP": "172.17.0.24",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.34",
+      "IP": "172.17.0.34",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.9",
+      "IP": "172.17.0.30",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.27",
+      "IP": "172.17.0.28",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.46",
+      "IP": "172.17.0.49",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.25",
+      "IP": "172.17.0.8",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 24,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.23",
+      "IP": "172.17.0.26",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 8,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.29",
+      "IP": "172.17.0.48",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 8,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.16",
+      "IP": "172.17.0.3",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 8,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.35",
+      "IP": "172.17.0.13",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 8,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.28",
+      "IP": "172.17.0.20",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 8,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.17",
+      "IP": "172.17.0.29",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 8,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.10",
+      "IP": "172.17.0.4",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 8,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.30",
+      "IP": "172.17.0.5",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 20,
+      "SlaveNumber": 8,
       "ClusterID": 0
     },
     {
-      "IP": "172.16.0.40",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.48",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.24",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.37",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.26",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.14",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.44",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.21",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.18",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.7",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.3",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.43",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.13",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.38",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.41",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.22",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.20",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.36",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.5",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.31",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.12",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.6",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.32",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.11",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.0.39",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.16.109",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.16.84",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.16.62",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.16.59",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.16.100",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.16.104",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.16.58",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.16.121",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 20,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.16.90",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 32,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.16.136",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 32,
-      "ClusterID": 0
-    },
-    {
-      "IP": "172.16.16.113",
+      "IP": "172.17.0.47",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": true,
-      "SlaveNumber": 25,
+      "SlaveNumber": 16,
       "ClusterID": 1
     },
     {
-      "IP": "172.16.16.138",
+      "IP": "172.17.0.36",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 25,
+      "SlaveNumber": 16,
       "ClusterID": 1
     },
     {
-      "IP": "172.16.16.79",
+      "IP": "172.17.0.44",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 25,
+      "SlaveNumber": 16,
       "ClusterID": 1
     },
     {
-      "IP": "172.16.16.68",
+      "IP": "172.17.0.25",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 25,
+      "SlaveNumber": 16,
       "ClusterID": 1
     },
     {
-      "IP": "172.16.16.143",
+      "IP": "172.17.0.35",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 25,
+      "SlaveNumber": 16,
       "ClusterID": 1
     },
     {
-      "IP": "172.16.16.73",
+      "IP": "172.17.0.33",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 25,
+      "SlaveNumber": 16,
       "ClusterID": 1
     },
     {
-      "IP": "172.16.16.134",
+      "IP": "172.17.0.6",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 25,
+      "SlaveNumber": 16,
       "ClusterID": 1
     },
     {
-      "IP": "172.16.16.115",
+      "IP": "172.17.0.41",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 25,
+      "SlaveNumber": 16,
       "ClusterID": 1
     },
     {
-      "IP": "172.16.16.4",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.111",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.142",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.95",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.97",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.53",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.108",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.92",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.47",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.137",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.126",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.75",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.11",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.140",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.105",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.91",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.118",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.34",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.42",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.130",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.41",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.7",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.131",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.112",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.22",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.61",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.39",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.129",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 25,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.86",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 31,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.94",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 31,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.64",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 31,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.141",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 31,
-      "ClusterID": 1
-    },
-    {
-      "IP": "172.16.16.89",
+      "IP": "172.17.0.92",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": true,
-      "SlaveNumber": 13,
+      "SlaveNumber": 4,
       "ClusterID": 2
     },
     {
-      "IP": "172.16.16.66",
+      "IP": "172.17.0.54",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 13,
+      "SlaveNumber": 4,
       "ClusterID": 2
     },
     {
-      "IP": "172.16.16.69",
+      "IP": "172.17.0.83",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 13,
+      "SlaveNumber": 4,
       "ClusterID": 2
     },
     {
-      "IP": "172.16.16.77",
+      "IP": "172.17.0.70",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 13,
+      "SlaveNumber": 4,
       "ClusterID": 2
     },
     {
-      "IP": "172.16.16.114",
+      "IP": "172.17.0.59",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 13,
+      "SlaveNumber": 4,
       "ClusterID": 2
     },
     {
-      "IP": "172.16.16.37",
+      "IP": "172.17.0.12",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 13,
+      "SlaveNumber": 4,
       "ClusterID": 2
     },
     {
-      "IP": "172.16.16.18",
+      "IP": "172.17.0.66",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 13,
+      "SlaveNumber": 4,
       "ClusterID": 2
     },
     {
-      "IP": "172.16.16.116",
+      "IP": "172.17.0.134",
       "Port": 22,
       "User": "root",
       "Password": "-",
       "IsMaster": false,
-      "SlaveNumber": 13,
-      "ClusterID": 2
-    },
-    {
-      "IP": "172.16.16.103",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 13,
-      "ClusterID": 2
-    },
-    {
-      "IP": "172.16.16.52",
-      "Port": 22,
-      "User": "root",
-      "Password": "-",
-      "IsMaster": false,
-      "SlaveNumber": 11,
+      "SlaveNumber": 4,
       "ClusterID": 2
     }
   ],
