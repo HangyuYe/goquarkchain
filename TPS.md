@@ -54,7 +54,7 @@ For more details please see deployer_config.json
 
 **Video URL**
 
-[Youtube](https://youtu.be/ughp-y4BS8Y)   
+[Youtube](https://youtu.be/wFfsaeO6NDQ)   
 
 **Output From `stats` Tool**
 ```
