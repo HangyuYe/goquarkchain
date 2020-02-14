@@ -53,7 +53,7 @@ For more details please see deployer_config.json
 [ **Cluster 1: 1,103675.00** ]
 
 **Video URL**
-
+[Bilibili](https://www.bilibili.com/video/av86656175/)
 [Youtube](https://youtu.be/wFfsaeO6NDQ)   
 
 **Output From `stats` Tool**
